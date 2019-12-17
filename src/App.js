@@ -1,25 +1,28 @@
 import React from 'react';
-import './App.css';
-import Input from './components/input'
-import Button from './components/Button/button'
+import Home from './Pages/Pedido';
+import { StyleSheet, css } from 'aphrodite';
+import Header from './Components/Header';
+import Nav from './Components/Nav';
 
+const styles = StyleSheet.create({
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 'auto',
+    color: 'black',
+  },
+});
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        Burger Queen
-      </header>
-      <main className="App-main"> 
-      
-        <label>Nome do Cliente<Input /></label>
-        <Button />
-        <label>Número da mesa <Input /></label>
-        <Button />
+      <Header />
+      <Nav />
+      <main className={css(styles.main)}>
+        <Home />
       </main>
     </div>
   );
 }
-
 
 export default App;

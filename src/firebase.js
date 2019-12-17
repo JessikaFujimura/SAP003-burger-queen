@@ -1,18 +1,16 @@
-
-const Firebase = () => {
-require('firebase/app')
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC2U0lTSyFSzBoym3QtqS6bz1l74tf7M0s",
-  authDomain: "burger-queen-85635.firebaseapp.com",
-  databaseURL: "https://burger-queen-85635.firebaseio.com",
-  projectId: "burger-queen-85635",
-  storageBucket: "burger-queen-85635.appspot.com",
-  messagingSenderId: "175776335071",
-  appId: "1:175776335071:web:b23e6de58832e0d047556a"
+  apiKey: 'AIzaSyAA6UICKUIiV6s_hG3Sdrb9JVGEbDCr9-w',
+  authDomain: 'burguer-queen-aff2c.firebaseapp.com',
+  databaseURL: 'https://burguer-queen-aff2c.firebaseio.com',
+  projectId: 'burguer-queen-aff2c',
+  storageBucket: 'burguer-queen-aff2c.appspot.com',
+  messagingSenderId: '271698652915',
+  appId: '1:271698652915:web:d405a72bfbbbe9ac639186',
 };
 
 firebase.initializeApp(firebaseConfig);
-}
 
-export default Firebase;
+export default firebase;
