@@ -5,8 +5,11 @@ import Button from './Button';
 const Card = (props) => {
   return (
     <div className={css(styles.card)} id={props.id}>
-      <p>{props.item}   R${props.value},00</p>
-      <Button onClick={props.action} name="Adicionar" />
+      <p>{props.item}</p>
+      <p>{props.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
+      <p>Opções: {props.option.map((i)=> <button >{i}</button>)}</p>
+      <p>Adicionais: {props.add.map((i)=> <button >{i}</button>)}</p>
+      <Button handleClick={props.handleClick} name="Adicionar" />
     </div>
   );
 };

@@ -3,8 +3,8 @@ import React from 'react';
 function Input(props) {
   return (
     <form>
-      <label>{props.label}</label>
-      <input type="text" id={props.id}></input>
+      <label htmlFor={props.id}>{props.label}</label>
+      <input type={props.type} id={props.id}></input>
     </form>
   );
 }

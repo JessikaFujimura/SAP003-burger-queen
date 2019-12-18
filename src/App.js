@@ -1,27 +1,18 @@
 import React from 'react';
-import Home from './Pages/Pedido';
-import { StyleSheet, css } from 'aphrodite';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Waiter from './Pages/Waiter';
 import Header from './Components/Header';
 import Nav from './Components/Nav';
-
-const styles = StyleSheet.create({
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 'auto',
-    color: 'black',
-  },
-});
+import Kitchen from './Pages/Kitchen';
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter className="App">
       <Header />
       <Nav />
-      <main className={css(styles.main)}>
-        <Home />
-      </main>
-    </div>
+      <Route path="/Waiter" component={Waiter} />
+      <Route path="/Kitchen" component={Kitchen} />
+    </BrowserRouter>
   );
 }
 
