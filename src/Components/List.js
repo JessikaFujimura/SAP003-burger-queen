@@ -1,17 +1,30 @@
 import React from 'react';
 import Button from './Button';
+import { StyleSheet, css } from 'aphrodite';
 
+const styles = StyleSheet.create({
+  list: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    listStyle: 'none',
+    width: '80%',
+    height: '5%',
+    margin: '1%',
+    color: '#420029',
+    border: '3px solid #420029',
+  },
+});
 
-const List = (props) => {
+const List = ({key, quant, item, value, handleClick}) => {
   return (
-    <div>
-      <li>
-        <span>{props.quant}</span>
-        <span>{props.item}</span>
-        <span>{props.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
-        <Button name="X" handleClick={props.handleClick} />
-      </li>
-    </div>
+    <li key={key} className={css(styles.list)}>
+      <h1>{quant}</h1>
+      <p>{item}</p>
+      <p>
+        {value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+      </p>
+      <Button name="X" handleClick={handleClick} />
+    </li>
   );
 };
 

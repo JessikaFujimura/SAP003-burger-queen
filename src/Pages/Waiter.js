@@ -43,7 +43,7 @@ const Waiter = () => {
 
   function addItem(item) {
     if (order.includes(item)) {
-      item.quant++
+      item.quant += 1;
       item.total = item.quant * item.value;
       setOrder([...order]);
     } else {
@@ -58,11 +58,10 @@ const Waiter = () => {
       order.splice(order.indexOf(item), 1);
       setOrder([...order]);
     } else {
-      item.quant--;
+      item.quant -= 1;
       item.total = item.quant * item.value;
       setOrder([...order]);
     }
-    console.log(order)
   }
 
 
@@ -72,18 +71,22 @@ const Waiter = () => {
         <h4>Menu</h4>
         <Button name="Café da manhã" id="breakfast" handleClick={(e) => showMenu(e)} />
         <Button name="Restante do dia" id="lunch" handleClick={(e) => showMenu(e)} />
-        {menufilter.map((i) => <Card item={i.item} value={i.value} option={i.option} add={i.add} handleClick={() => addItem(i)} />)}
+        {menufilter.map((i) =>
+          <Card item={i.item} icon={i.icon} value={i.value} option={i.option} add={i.add} handleClick={() => addItem(i)} />)}
       </section>
       <section className={css(styles.commands)}>
         <h4>Pedido</h4>
         <Input label="Nome do cliente  " id="name" type="text" />
         <Input label="Nº da mesa  " id="table" type="text" />
-        <div>
-          {order.map((i) => <List item={i.item} value={i.value} quant={i.quant} handleClick={() => deleteItem(i)} />)}
-        </div>
-        <div>
-          <p>Total </p>
-        </div>
+        <article>
+          {order.map((i) => <List key={i.id} item={i.item} value={i.value} quant={i.quant} handleClick={() => deleteItem(i)} />)}
+        </article>
+        <article>
+          <p>
+            Total
+            {order.reduce(((sumTotal, i) => sumTotal + i.total), 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+          </p>
+        </article>
         <Button name="Salvar" onClick={() => infoClient()} />
       </section>
     </div>

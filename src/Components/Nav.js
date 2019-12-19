@@ -8,10 +8,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     listStyle: 'none',
     textDecoration: 'none',
-    fontSize: '150%',
+    fontSize: '120%',
     justifyContent: 'space-around',
     backgroundColor: '#BF3904',
     padding: '10px',
+    margin: '0'
   },
 });
 
@@ -19,8 +20,8 @@ const Nav = () => {
   return (
     <nav>
       <ul className={css(styles.nav)}>
-        <li><Link to="/Waiter">Garçon</Link></li>
-        <li><Link to="/Kitchen">Cozinha</Link></li>
+        <li><Link className={css(styles.nav)} to="/Waiter">Garçon</Link></li>
+        <li><Link className={css(styles.nav)} to="/Kitchen">Cozinha</Link></li>
       </ul>
     </nav>
   );
