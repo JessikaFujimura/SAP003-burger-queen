@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
     margin: '10px',
     padding: '10px',
     borderRadius: '5px',
-    width: '200px',
+    width: '150px',
   },
   img: {
     width: '40%',
-  }
+  },
 });
 
 const Card = (props) => {
@@ -20,7 +20,7 @@ const Card = (props) => {
     <div className={css(styles.card)} key={props.id}>
       <p>{props.item}</p>
       <p>{props.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
-      <img className={css(styles.img)} src={props.icon} alt='icone'/>
+      <img className={css(styles.img)} src={props.icon} alt="icone" />
       <div>
         {props.option ? <form><p>Opções de hambúrguer:</p>
             {props.option.map((i, index)=> <label><input id={index} type='radio' value={i} name='option'/>{i}</label>)}</form>
@@ -30,9 +30,7 @@ const Card = (props) => {
         {
           props.add ?
           <form>
-            <p>
-              Adicionais:
-            </p>
+            <p>Adicionais:</p>
             {props.add.map((i)=> <label><input type="radio" value={i} name='addition'/>{i}</label>)}
           </form> : ''
         }

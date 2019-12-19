@@ -15,11 +15,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const List = ({key, quant, item, value, handleClick}) => {
+const List = ({key, quant, item, option, addition, value, handleClick}) => {
   return (
     <li key={key} className={css(styles.list)}>
       <h1>{quant}</h1>
       <p>{item}</p>
+      <p>{option}</p>
+      <p>{addition}</p>
       <p>
         {value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
       </p>

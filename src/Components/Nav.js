@@ -8,11 +8,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     listStyle: 'none',
     textDecoration: 'none',
-    fontSize: '120%',
+    fontSize: '130%',
     justifyContent: 'space-around',
     backgroundColor: '#BF3904',
     padding: '10px',
-    margin: '0'
+    margin: '0',
+    fontWeight: 'bolder',
   },
 });
 
