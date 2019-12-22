@@ -17,15 +17,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Nav = () => {
-  return (
-    <nav>
-      <ul className={css(styles.nav)}>
-        <li><Link className={css(styles.nav)} to="/Waiter">Garçon</Link></li>
-        <li><Link className={css(styles.nav)} to="/Kitchen">Cozinha</Link></li>
-      </ul>
-    </nav>
-  );
-};
+const Nav = () => (
+  <nav>
+    <ul className={css(styles.nav)}>
+      <li><Link className={css(styles.nav)} to="/Waiter">Garçon</Link></li>
+      <li><Link className={css(styles.nav)} to="/Kitchen">Cozinha</Link></li>
+    </ul>
+  </nav>
+);
 
 export default Nav;

@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from '../Image/Logo.png';
 import { StyleSheet, css } from 'aphrodite';
+import logo from '../Image/Logo.png';
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#E69800',
-    minHeight: '30vh',
+    maxHeight: '25vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = () => {
+function Header() {
   return (
     <header className={css(styles.header)}>
       <img src={logo} alt="logo" />
       <p>Seu fast-food 24 Horas</p>
     </header>
   );
-};
+}
 
 export default Header;
