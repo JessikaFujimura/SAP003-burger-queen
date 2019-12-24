@@ -53,6 +53,10 @@ const Kitchen = () => {
     setOrder(order.filter((i) => i.status === 'em preparação'));
   }
 
+  function Archieve() {
+    console.log('oi');
+  }
+
 
   return (
     <div>
@@ -66,7 +70,7 @@ const Kitchen = () => {
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>Pedidos prontos</h4>
         <article className={css(styles.article)}>
-          {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Arquivar" handleClick={() => Ready(i)} />
+          {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Arquivar" handleClick={() => Archieve(i)} />
           ))}
         </article>
       </section>

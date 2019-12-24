@@ -6,6 +6,7 @@ import Input from '../Components/Input';
 import Button from '../Components/Button';
 import Menu from '../Components/Menu';
 import List from '../Components/List';
+import Modal from '../Components/Modal';
 
 const styles = StyleSheet.create({
   divmain: {
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#E69901',
     margin: '7% 0',
   },
+  modal: {
+    position: 'absolute',
+    filter: 'blur(0)',
+    background: 'white',
+  },
 });
 
 const MakeOrder = () => {
@@ -49,7 +55,7 @@ const MakeOrder = () => {
   const [client, setClient] = useState('');
   const [table, setTable] = useState('');
   const [order, setOrder] = useState([]);
-
+  const [show, setShow] = useState('false');
 
   useEffect(() => {
     firebase.firestore().collection('menu').get()
@@ -63,9 +69,7 @@ const MakeOrder = () => {
     const date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
     const time = `${new Date().getHours()}h:${new Date().getMinutes()}m:${new Date().getSeconds()}s`;
     if (client === '' && table === '') {
-      alert('Preencher todos os campos');
-    } else if (order === []) {
-      alert('Montar um pedido');
+      setShow('true');
     } else {
       firebase.firestore().collection('orders').add({
         date,
@@ -99,7 +103,7 @@ const MakeOrder = () => {
         } else {
           item.quant = 1;
           item.total = item.quant * item.value;
-          //item.optionChange = option;
+          // item.optionChange = option;
           setOrder([...order, item]);
         }
       } else {
@@ -111,7 +115,7 @@ const MakeOrder = () => {
       item.quant = 1;
       item.total = item.quant * item.value;
       if (item.option) {
-        //item.optionChange = option;
+        // item.optionChange = option;
       }
       setOrder([...order, item]);
     }
@@ -130,6 +134,7 @@ const MakeOrder = () => {
 
   return (
     <div className={css(styles.divmain)}>
+      <Modal show={show} handleClick={() => setShow('false')} text="Preencha todos os campos" nameBtn="Fechar" />
       <section className={css(styles.menu)}>
         <h4 className={css(styles.title)}>Menu</h4>
         <Button name="Café da manhã" id="breakfast" handleClick={(e) => showMenu(e)} />

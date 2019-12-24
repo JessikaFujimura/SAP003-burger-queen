@@ -20,21 +20,17 @@ const styles = StyleSheet.create({
   },
   text: {
     textDecoration: 'none',
-  }
+  },
 });
 
-const Waiter = () => {
-
-
-  return (
-    <div className={css(styles.divmain)}>
-      <Link className={css(styles.text)} to="/Waiter/Order"><button type="button" className={css(styles.button)}>Pedidos</button></Link>
-      <Link className={css(styles.text)} to="/Waiter/Delivery"><button type="button" className={css(styles.button)}>Entregar</button></Link>
-      <Route path="/Waiter/Order" component={MakeOrder} />
-      <Route path="/Waiter/Delivery" component={Delivery} />
-    </div>
-  );
-};
+const Waiter = () => (
+  <div className={css(styles.divmain)}>
+    <Link className={css(styles.text)} to="/Waiter/Order"><button type="button" className={css(styles.button)}>Pedidos</button></Link>
+    <Link className={css(styles.text)} to="/Waiter/Delivery"><button type="button" className={css(styles.button)}>Entregar</button></Link>
+    <Route path="/Waiter/Order" component={MakeOrder} />
+    <Route path="/Waiter/Delivery" component={Delivery} />
+  </div>
+);
 
 
 export default Waiter;
