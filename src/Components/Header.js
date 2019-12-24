@@ -5,7 +5,7 @@ import logo from '../Image/Logo.png';
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#E69800',
-    maxHeight: '25vh',
+    maxHeight: '40vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

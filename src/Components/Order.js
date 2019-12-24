@@ -12,21 +12,28 @@ const styles = StyleSheet.create({
     margin: '10px',
     padding: '10px',
     borderRadius: '5px',
-    width: '80%',
+    width: '30%',
+  },
+  table: {
+    textAlign: 'center',
   },
 });
 
 const Order = ({
-  id, client, orderClient, table, handleClick, data, hora,
+  id, client, orderClient, table, handleClick, date, time, nameBtn, leadTime,
 }) => (
   <li className={css(styles.order)} key={id}>
     <p>
       <strong>Data: </strong>
-      {data}
+      {date}
     </p>
     <p>
       <strong>Hora: </strong>
-      {hora}
+      {time}
+    </p>
+    <p>
+      <strong>Tempo de preparo: </strong>
+      {leadTime}
     </p>
     <p>
       <strong>Mesa: </strong>
@@ -36,17 +43,19 @@ const Order = ({
       <strong>Nome do cliente: </strong>
       {client}
     </p>
-    {orderClient.map((n) => (
-      <p>
-        <span>
-          {n.quant}
-        </span>
-        <span>
-          {n.item}
-        </span>
-      </p>
-    ))}
-    <Button handleClick={handleClick} name="Pronto" />
+    <table className={css(styles.table)}>
+      <tr>
+        <th>Quant.</th>
+        <th>Item</th>
+      </tr>
+      {orderClient.map((n) => (
+        <tr>
+          <td>{n.quant}</td>
+          <td>{n.item}</td>
+        </tr>
+      ))}
+    </table>
+    <Button handleClick={handleClick} name={nameBtn} />
   </li>
 );
 
@@ -55,8 +64,10 @@ Order.propTypes = {
   client: PropTypes.string.isRequired,
   table: PropTypes.number.isRequired,
   orderClient: PropTypes.arrayOf.isRequired,
-  data: PropTypes.string.isRequired,
-  hora: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+  leadTime: PropTypes.string.isRequired,
+  nameBtn: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
