@@ -1,10 +1,18 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
+import { StyleSheet, css } from 'aphrodite';
 import Order from '../Components/Order';
 import firebase from '../utils/firebase';
 
+const styles = StyleSheet.create({
+  title: {
+    color: '#E69901',
+    fontSize: '150%',
+  },
+});
+
+
 const Delivery = () => {
-  const [order, setOrder] = useState([]);
   const [ready, setReady] = useState([]);
 
   useEffect(() => {
@@ -15,21 +23,23 @@ const Delivery = () => {
       });
   }, []);
 
-  function Ready(item) {
+  function Delivered(item) {
     firebase.firestore().collection('orders').doc(item.id).update({
-      status: 'pronto',
+      status: 'entregue',
     });
-    item.status = 'pronto';
-    setOrder(order.filter((i) => i.status === 'em preparação'));
+    item.status = 'entregue';
+    setReady(ready.filter((i) => i.status === 'pronto'));
   }
 
 
   return (
     <div>
       <section>
-        <h4>Pedidos prontos</h4>
-        {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} nameBtn="Entregue" handleClick={() => Ready(i)} />
-        ))}
+        <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
+        <article>
+          {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} nameBtn="Entregue" handleClick={() => Delivered(i)} />
+          ))}
+        </article>
       </section>
     </div>
   );

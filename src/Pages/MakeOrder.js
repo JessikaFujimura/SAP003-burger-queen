@@ -56,6 +56,8 @@ const MakeOrder = () => {
   const [table, setTable] = useState('');
   const [order, setOrder] = useState([]);
   const [show, setShow] = useState('false');
+  const [optionChosen, setOptionChosen] = useState('');
+  const [addChosen, setAddChosen] = useState('');
 
   useEffect(() => {
     firebase.firestore().collection('menu').get()
@@ -95,16 +97,16 @@ const MakeOrder = () => {
 
   function addItem(item) {
     if (order.some((i) => item.id === i.id)) {
-      if (item.option) {
-        if (order.some((i) => i.optionChange === item.optionChange)) {
+      if (item.optionChosen || item.addChosen) {
+        if (item.optionChosen.includes(optionChosen)) {
           item.quant += 1;
           item.total = item.quant * item.value;
           setOrder([...order]);
         } else {
-          item.quant = 1;
-          item.total = item.quant * item.value;
-          // item.optionChange = option;
-          setOrder([...order, item]);
+          const quant = 1;
+          const total = addChosen === 'nenhum' ? item.quant * item.value : (item.quant * item.value) + 1;
+          const value = addChosen === 'nenhum' ? item.value : item.value + 1;
+          setOrder([...order, { ...item, optionChosen, addChosen, value, quant, total }]);
         }
       } else {
         item.quant += 1;
@@ -114,11 +116,21 @@ const MakeOrder = () => {
     } else {
       item.quant = 1;
       item.total = item.quant * item.value;
-      if (item.option) {
-        // item.optionChange = option;
-      }
       setOrder([...order, item]);
+      if (item.option || item.add) {
+        item.optionChosen = optionChosen;
+        item.addChosen = addChosen;
+        setOrder([...order, { ...item, value: item.addChosen === 'nenhum' ? item.value : item.value + 1, total: addChosen === 'nenhum' ? item.quant * item.value : item.quant * item.value + 1 }]);
+      }
     }
+    setOptionChosen('');
+    setAddChosen('');
+  }
+
+  function btnAddItem(item) {
+    item.quant += 1;
+    item.total = item.quant * item.value;
+    setOrder([...order]);
   }
 
   function deleteItem(item) {
@@ -148,6 +160,8 @@ const MakeOrder = () => {
               option={i.option}
               add={i.add}
               handleClick={() => addItem(i)}
+              optionChosen={setOptionChosen}
+              addChosen={setAddChosen}
             />
           ))}
         </article>
@@ -165,7 +179,10 @@ const MakeOrder = () => {
               quant={i.quant}
               option={i.optionChange ? i.option : []}
               addition={i.addChange ? i.addChange : []}
-              handleClick={() => deleteItem(i)}
+              removeClick={() => deleteItem(i)}
+              addClick={() => btnAddItem(i)}
+              optionChosen={i.optionChosen}
+              addChosen={i.addChosen}
             />
           ))}
         </article>

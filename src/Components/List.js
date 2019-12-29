@@ -18,18 +18,20 @@ const styles = StyleSheet.create({
 });
 
 const List = ({
-  key, quant, item, option, addition, value, handleClick,
+  key, quant, item, optionChosen, addChosen, addition, value, removeClick,addClick,
 }) => {
   return (
     <li key={key} className={css(styles.list)}>
+      <Button name="+" handleClick={addClick} />
       <h1>{quant}</h1>
       <p>{item}</p>
-      <p>{option}</p>
+      <p>{optionChosen}</p>
+      <p>{addChosen}</p>
       <p>{addition}</p>
       <p>
         {value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
       </p>
-      <Button name="X" handleClick={handleClick} />
+      <Button name="X" handleClick={removeClick} />
     </li>
   );
 };
@@ -39,7 +41,7 @@ List.propTypes = {
   item: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   quant: PropTypes.number.isRequired,
-  option: PropTypes.arrayOf.isRequired,
+  optionChosen: PropTypes.string.isRequired,
   addition: PropTypes.arrayOf.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

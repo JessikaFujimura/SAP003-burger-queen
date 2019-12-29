@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
 const Kitchen = () => {
   const [order, setOrder] = useState([]);
   const [ready, setReady] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     firebase.firestore().collection('orders').where('status', '==', 'em preparação').get()
@@ -37,6 +38,11 @@ const Kitchen = () => {
       .then((snap) => {
         snap.forEach((doc) => (
           setReady((currency) => [...currency, { ...doc.data(), id: doc.id }])));
+      });
+    firebase.firestore().collection('orders').where('status', '==', 'entregue').get()
+      .then((snap) => {
+        snap.forEach((doc) => (
+          setHistory((currency) => [...currency, { ...doc.data(), id: doc.id }])));
       });
   }, []);
 
@@ -57,6 +63,9 @@ const Kitchen = () => {
     console.log('oi');
   }
 
+  function Delete() {
+    console.log('oi');
+  }
 
   return (
     <div>
@@ -72,6 +81,12 @@ const Kitchen = () => {
         <article className={css(styles.article)}>
           {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Arquivar" handleClick={() => Archieve(i)} />
           ))}
+        </article>
+      </section>
+      <section className={css(styles.section)}>
+        <h4 className={css(styles.title)}>Histórico de pedidos</h4>
+        <article className={css(styles.article)}>
+          {history.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Deletar" handleClick={() => Delete(i)} />))}
         </article>
       </section>
     </div>

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const Menu = ({
-  id, item, value, icon, option, add, handleClick,
+  id, item, value, icon, option, add, handleClick, optionChosen, addChosen, 
 }) => (
   <div className={css(styles.card)} key={id}>
     <p>{item}</p>
@@ -35,8 +35,8 @@ const Menu = ({
           </p>
           {
             option.map((i, index) => (
-              <label className={css(styles.label)}>
-                <input className={css(styles.radio)} id={index} type="radio" value={i} name="option" />
+              <label htmlFor={index} className={css(styles.label)}>
+                <input onChange={(e) => optionChosen(e.target.value)} className={css(styles.radio)} id={index} type="radio" value={i} name="option" />
                 {i}
               </label>
             ))
@@ -55,7 +55,7 @@ const Menu = ({
             {
               add.map((i) => (
                 <label className={css(styles.label)}>
-                  <input className={css(styles.radio)} type="radio" value={i} name="addition" />
+                  <input className={css(styles.radio)} onChange={(e) => addChosen(e.target.value)} type="radio" value={i} name="addition" />
                   {i}
                 </label>
               ))
@@ -74,10 +74,10 @@ Menu.propTypes = {
   item: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   icon: PropTypes.string.isRequired,
-  option: PropTypes.arrayOf.isRequired,
+  optionChosen: PropTypes.string.isRequired,
   add: PropTypes.arrayOf.isRequired,
+  option: PropTypes.arrayOf.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
-
 
 export default Menu;
