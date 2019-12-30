@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     margin: '2%',
     color: '#420029',
     border: '3px solid #420029',
-    borderRadius: '5%',
+    borderRadius: '15px',
     fontSize: '120%',
     padding: '4%',
   },
@@ -18,7 +18,15 @@ const styles = StyleSheet.create({
 
 function Button({ id, handleClick, name }) {
   return (
-    <button type="button" id={id} className={css(styles.button)} onClick={handleClick}>{name}</button>);
+    <button
+      type="button"
+      id={id}
+      className={css(styles.button)}
+      onClick={handleClick}
+    >
+      {name}
+    </button>
+  );
 }
 
 Button.propTypes = {

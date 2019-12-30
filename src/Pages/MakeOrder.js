@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-around',
     fontSize: '120%',
-    backgroundColor: '#E69901',
+    backgroundColor: '#BF3904',
     margin: '7% 0',
   },
   modal: {
@@ -67,7 +67,7 @@ const MakeOrder = () => {
   }, []);
 
 
-  function infoClient() {
+  function newOrder() {
     const date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
     const time = `${new Date().getHours()}h:${new Date().getMinutes()}m:${new Date().getSeconds()}s`;
     if (client === '' && table === '') {
@@ -106,7 +106,9 @@ const MakeOrder = () => {
           const quant = 1;
           const total = addChosen === 'nenhum' ? item.quant * item.value : (item.quant * item.value) + 1;
           const value = addChosen === 'nenhum' ? item.value : item.value + 1;
-          setOrder([...order, { ...item, optionChosen, addChosen, value, quant, total }]);
+          setOrder([...order, {
+            ...item, optionChosen, addChosen, value, quant, total,
+          }]);
         }
       } else {
         item.quant += 1;
@@ -123,8 +125,6 @@ const MakeOrder = () => {
         setOrder([...order, { ...item, value: item.addChosen === 'nenhum' ? item.value : item.value + 1, total: addChosen === 'nenhum' ? item.quant * item.value : item.quant * item.value + 1 }]);
       }
     }
-    setOptionChosen('');
-    setAddChosen('');
   }
 
   function btnAddItem(item) {
@@ -145,15 +145,29 @@ const MakeOrder = () => {
   }
 
   return (
-    <div className={css(styles.divmain)}>
-      <Modal show={show} handleClick={() => setShow(false)} text="Preencha todos os campos" nameBtn="Fechar" />
+    <main className={css(styles.divmain)}>
+      <Modal
+        show={show}
+        handleClick={() => setShow(false)}
+        text="Preencha todos os campos"
+        nameBtn="Fechar"
+      />
       <section className={css(styles.menu)}>
         <h4 className={css(styles.title)}>Menu</h4>
-        <Button name="Café da manhã" id="breakfast" handleClick={(e) => showMenu(e)} />
-        <Button name="Restante do dia" id="lunch" handleClick={(e) => showMenu(e)} />
+        <Button
+          name="Café da manhã"
+          id="breakfast"
+          handleClick={(e) => showMenu(e)}
+        />
+        <Button
+          name="Restante do dia"
+          id="lunch"
+          handleClick={(e) => showMenu(e)}
+        />
         <article className={css(styles.menuItem)}>
           {menufilter.map((i) => (
             <Menu
+              id={i.id}
               item={i.item}
               icon={i.icon}
               value={i.value}
@@ -168,8 +182,20 @@ const MakeOrder = () => {
       </section>
       <section className={css(styles.commands)}>
         <h4 className={css(styles.title)}>Pedido</h4>
-        <Input label="Nome do cliente  " id="inputName" value={client} type="text" handleClick={(e) => setClient(e.currentTarget.value)} />
-        <Input label="Nº da mesa  " id="inputTable" value={table} type="text" handleClick={(e) => setTable(e.currentTarget.value)} />
+        <Input
+          label="Nome do cliente"
+          id="inputName"
+          value={client}
+          type="text"
+          handleClick={(e) => setClient(e.currentTarget.value)}
+        />
+        <Input
+          label="Nº da mesa"
+          id="inputTable"
+          value={table}
+          type="text"
+          handleClick={(e) => setTable(e.currentTarget.value)}
+        />
         <article className={css(styles.commandsList)}>
           {order.map((i) => (
             <List
@@ -190,9 +216,9 @@ const MakeOrder = () => {
           <p>Total </p>
           <p>{order.reduce(((sumTotal, i) => sumTotal + i.total), 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
         </div>
-        <Button name="Salvar" id="btnSave" handleClick={() => infoClient()} />
+        <Button name="Salvar" id="btnSave" handleClick={() => newOrder()} />
       </section>
-    </div>
+    </main>
   );
 };
 

@@ -34,7 +34,7 @@ const Modal = ({
     <section className={css(styles.modal)}>
       <article className={css(styles.box)}>
         <p>{text}</p>
-        <Button handleClick={handleClick} name={nameBtn} />
+        <Button id="btnClose" handleClick={handleClick} name={nameBtn} />
       </article>
     </section>
   );

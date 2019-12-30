@@ -6,37 +6,50 @@ import Delivery from './Delivery';
 import OrderDone from './OrderDone';
 
 const styles = StyleSheet.create({
-  divmain: {
-    display: 'block',
-    textAlign: 'center',
+  section: {
+    display: 'flex',
+    justifyContent: 'space-around',
   },
-  button: {
-    width: '20%',
-    height: '5em',
-    color: '#420029',
-    border: '3px solid #420029',
+  link: {
+    textDecoration: 'none',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontWeight: 'bolder',
     fontSize: '130%',
-    padding: '15px',
+    width: '150px',
+    height: '150px',
+    color: 'white',
+    borderRadius: '50%',
+    border: '5px inset #AD4B05',
+    padding: '10px',
     margin: '5%',
     cursor: 'pointer',
+    backgroundColor: '#E07100',
     ':hover': {
-      color: '#FF2A016',
+      backgroundColor: '#420029',
     },
-  },
-  text: {
-    textDecoration: 'none',
   },
 });
 
 const Waiter = () => (
-  <div className={css(styles.divmain)}>
-    <Link className={css(styles.text)} to="/Waiter/Order"><button type="button" className={css(styles.button)}>Novo Pedido</button></Link>
-    <Link className={css(styles.text)} to="/Waiter/OrderDone"><button type="button" className={css(styles.button)}>Pedido Realizados</button></Link>
-    <Link className={css(styles.text)} to="/Waiter/Delivery"><button type="button" className={css(styles.button)}>Entregar Pedido</button></Link>
+  <section>
+    <article className={css(styles.section)}>
+      <Link className={css(styles.link)} to="/Waiter/Order">
+        Novo Pedido
+      </Link>
+      <Link className={css(styles.link)} to="/Waiter/OrderDone">
+        Pedido Realizados
+      </Link>
+      <Link className={css(styles.link)} to="/Waiter/Delivery">
+        Entregar Pedido
+      </Link>
+    </article>
     <Route path="/Waiter/Order" component={MakeOrder} />
     <Route path="/Waiter/Delivery" component={Delivery} />
     <Route path="/Waiter/OrderDone" component={OrderDone} />
-  </div>
+  </section>
 );
 
 
