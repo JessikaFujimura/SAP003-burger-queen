@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 const Modal = ({
   show, handleClick, nameBtn, text,
 }) => {
-  if (show === 'false') {
+  if (show === false) {
     return null;
   }
   return (

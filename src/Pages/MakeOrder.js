@@ -55,7 +55,7 @@ const MakeOrder = () => {
   const [client, setClient] = useState('');
   const [table, setTable] = useState('');
   const [order, setOrder] = useState([]);
-  const [show, setShow] = useState('false');
+  const [show, setShow] = useState(false);
   const [optionChosen, setOptionChosen] = useState('');
   const [addChosen, setAddChosen] = useState('');
 
@@ -146,7 +146,7 @@ const MakeOrder = () => {
 
   return (
     <div className={css(styles.divmain)}>
-      <Modal show={show} handleClick={() => setShow('false')} text="Preencha todos os campos" nameBtn="Fechar" />
+      <Modal show={show} handleClick={() => setShow(false)} text="Preencha todos os campos" nameBtn="Fechar" />
       <section className={css(styles.menu)}>
         <h4 className={css(styles.title)}>Menu</h4>
         <Button name="Café da manhã" id="breakfast" handleClick={(e) => showMenu(e)} />
@@ -190,7 +190,7 @@ const MakeOrder = () => {
           <p>Total </p>
           <p>{order.reduce(((sumTotal, i) => sumTotal + i.total), 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
         </div>
-        <Button name="Salvar" handleClick={() => infoClient()} />
+        <Button name="Salvar" id="btnSave" handleClick={() => infoClient()} />
       </section>
     </div>
   );

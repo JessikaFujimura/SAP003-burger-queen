@@ -18,6 +18,10 @@ const styles = StyleSheet.create({
     fontSize: '130%',
     padding: '15px',
     margin: '5%',
+    cursor: 'pointer',
+    ':hover': {
+      color: '#FF2A016',
+    },
   },
   text: {
     textDecoration: 'none',

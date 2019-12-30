@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 
 const styles = StyleSheet.create({
   nav: {
-    display: 'flex',
-    flexDirection: 'row',
-    listStyle: 'none',
-    textDecoration: 'none',
-    fontSize: '150%',
-    justifyContent: 'space-around',
-    backgroundColor: '#BF3904',
-    padding: '10px',
-    margin: '0',
-    fontWeight: 'bolder',
+    '@media (min-width: 768px) and (max-width: 991px)': {
+      display: 'flex',
+      flexDirection: 'row',
+      listStyle: 'none',
+      textDecoration: 'none',
+      fontSize: '150%',
+      justifyContent: 'space-around',
+      backgroundColor: '#BF3904',
+      padding: '10px',
+      margin: '0',
+      fontFamily: 'Inria Serif, serif',
+      fontWeight: 'bolder',
+    },
   },
 });
 

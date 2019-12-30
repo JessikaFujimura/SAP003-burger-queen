@@ -21,6 +21,15 @@ const styles = StyleSheet.create({
     color: '#E69901',
     fontSize: '150%',
   },
+  order: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#bf3904',
+    margin: '10px',
+    padding: '10px',
+    borderRadius: '5px',
+    width: '30%',
+  },
 });
 
 const OrderDone = () => {
@@ -36,6 +45,8 @@ const OrderDone = () => {
 
   function Delete(item) {
     firebase.firestore().collection('orders').doc(item.id).delete();
+    order.splice(order.indexOf(item), 1);
+    setOrder([...order]);
   }
   function Edit(item) {
     firebase.firestore().collection('orders').doc(item.id).update();
@@ -48,7 +59,7 @@ const OrderDone = () => {
         <h4 className={css(styles.title)}>Todos os pedidos</h4>
         <article className={css(styles.article)}>
           {order.map((i) => (
-            <li key={i.id}>
+            <li className={css(styles.order)} key={i.id}>
               <p>
                 <strong>Data: </strong>
                 {i.date}
@@ -60,6 +71,10 @@ const OrderDone = () => {
               <p>
                 <strong>Tempo de preparo: </strong>
                 {i.leadTime}
+              </p>
+              <p>
+                <strong>Status: </strong>
+                {i.status}
               </p>
               <p>
                 <strong>Mesa: </strong>
@@ -81,8 +96,8 @@ const OrderDone = () => {
                   </tr>
                 ))}
               </table>
-              <Button handleClick={() => Edit(i)} name="Editar" />
-              <Button handleClick={() => Delete(i)} name="Excluir" />
+              <Button handleClick={() => Edit(i)} name="Editar" id={i.id} />
+              <Button handleClick={() => Delete(i)} name="Excluir" id={i.id} />
             </li>
           ))}
         </article>

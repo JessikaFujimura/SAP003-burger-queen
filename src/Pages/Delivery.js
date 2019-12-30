@@ -37,7 +37,7 @@ const Delivery = () => {
       <section>
         <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
         <article>
-          {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} nameBtn="Entregue" handleClick={() => Delivered(i)} />
+          {ready.map((i) => (<Order id={i.id} client={i.client} table={i.table} orderClient={i.order} date={i.date} leadTime={i.leadTime} time={i.time} nameBtn="Entregue" handleClick={() => Delivered(i)} />
           ))}
         </article>
       </section>

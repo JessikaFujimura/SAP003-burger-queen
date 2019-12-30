@@ -60,11 +60,13 @@ const Kitchen = () => {
   }
 
   function Archieve() {
-    console.log('oi');
+    
   }
 
-  function Delete() {
-    console.log('oi');
+  function Delete(i) {
+    firebase.firestore().collection('orders').doc(i.id).delete();
+    history.splice(history.indexOf(i), 1);
+    setHistory([...history]);
   }
 
   return (
@@ -72,21 +74,55 @@ const Kitchen = () => {
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>Pedidos em produção</h4>
         <article className={css(styles.article)}>
-          {order.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} nameBtn="Pronto" time={i.time} handleClick={() => Ready(i)} />
+          {order.map((i) => (
+            <Order
+              id={i.id}
+              client={i.client}
+              table={i.table}
+              orderClient={i.order}
+              date={i.date}
+              nameBtn="Pronto"
+              time={i.time}
+              status={i.status}
+              handleClick={() => Ready(i)}
+            />
           ))}
         </article>
       </section>
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>Pedidos prontos</h4>
         <article className={css(styles.article)}>
-          {ready.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Arquivar" handleClick={() => Archieve(i)} />
+          {ready.map((i) => (
+            <Order
+              client={i.client}
+              table={i.table}
+              orderClient={i.order}
+              date={i.date}
+              time={i.time}
+              leadTime={i.leadTime}
+              nameBtn="Arquivar"
+              status={i.status}
+              handleClick={() => Archieve(i)}
+            />
           ))}
         </article>
       </section>
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>Histórico de pedidos</h4>
         <article className={css(styles.article)}>
-          {history.map((i) => (<Order client={i.client} table={i.table} orderClient={i.order} date={i.date} time={i.time} leadTime={i.leadTime} nameBtn="Deletar" handleClick={() => Delete(i)} />))}
+          {history.map((i) => (
+            <Order
+              client={i.client}
+              table={i.table}
+              orderClient={i.order}
+              date={i.date}
+              time={i.time}
+              leadTime={i.leadTime}
+              nameBtn="Deletar"
+              status={i.status}
+              handleClick={() => Delete(i)}
+            />
+          ))}
         </article>
       </section>
     </div>

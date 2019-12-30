@@ -20,15 +20,20 @@ const styles = StyleSheet.create({
 });
 
 function Input({
-  id, label, type, value, text, name, handleClick,
+  id, label, type, value, handleClick,
 }) {
   return (
     <form>
       <label className={css(styles.text)} htmlFor={id}>
         {label}
       </label>
-      <input className={css(styles.input)} type={type} id={id} name={name} value={value} onChange={handleClick} />
-      {text}
+      <input
+        className={css(styles.input)}
+        type={type}
+        id={id}
+        value={value}
+        onChange={handleClick}
+      />
     </form>
   );
 }
@@ -38,8 +43,6 @@ Input.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 

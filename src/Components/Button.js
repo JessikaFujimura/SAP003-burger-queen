@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
     margin: '2%',
     color: '#420029',
     border: '3px solid #420029',
-    fontSize: '110%',
-    padding: '15px',
+    borderRadius: '5%',
+    fontSize: '120%',
+    padding: '4%',
   },
 });
 
