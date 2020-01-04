@@ -7,15 +7,22 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 'auto',
     alignSelf: 'center',
-    margin: '2%',
     color: '#420029',
-    border: '3px solid #420029',
-    padding: '15px',
+    border: '1px solid #586B9F',
+    borderRadius: '15px 0',
+    margin: '2%',
+    padding: '3%',
+    fontSize: '0.9rem',
+    '@media (min-width: 768px)': {
+      fontSize: '1.2rem',
+    },
   },
   text: {
     alignSelf: 'center',
-    fontSize: '120%',
-    padding: '15px',
+    fontSize: '0.9rem',
+    '@media (min-width: 768px)': {
+      fontSize: '1.4rem',
+    },
   },
 });
 

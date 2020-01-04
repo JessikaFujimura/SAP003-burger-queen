@@ -8,24 +8,35 @@ const styles = StyleSheet.create({
   header: {
     backgroundImage: `url(${header})`,
     backgroundSize: 'cover',
-    maxHeight: '30vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '3% 0 0',
+    maxHeight: '20vh',
+    '@media (min-width: 768px)': {
+      maxHeight: '30vh',
+      padding: '3% 0 0',
+    },
   },
   text: {
     color: 'white',
     fontFamily: 'Ma Shan Zheng, cursive',
-    fontSize: '180%',
+    '@media (min-width: 768px)': {
+      fontSize: '1.8rem',
+    },
+  },
+  img: {
+    width: '100px',
+    '@media (min-width: 768px)': {
+      width: '100%',
+    },
   },
 });
 
 function Header() {
   return (
     <header className={css(styles.header)}>
-      <Link to="/"><img src={logo} alt="logo" /></Link>
+      <Link to="/"><img className={css(styles.img)} src={logo} alt="logo" /></Link>
       <p className={css(styles.text)}>Seu fast-food 24 Horas</p>
     </header>
   );

@@ -5,11 +5,13 @@ import Button from './Button';
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#bf3904',
-    margin: '10px',
-    padding: '10px',
-    borderRadius: '5px',
-    width: '150px',
+    boxSizing: 'border-box',
+    backgroundColor: '#D3AA62',
+    margin: '2%',
+    padding: '3%',
+    borderRadius: '3vh',
+    width: '45%',
+    listStyle: 'none',
   },
   img: {
     width: '40%',
@@ -18,17 +20,23 @@ const styles = StyleSheet.create({
     display: 'block',
     listStyle: 'none',
   },
+  radio: {
+    fontSize: '15rem',
+    userSelect: 'none',
+    cursor: 'pointer',
+  },
 });
 
 const Menu = ({
   id, item, value, icon, option, add, handleClick, optionChosen, addChosen,
 }) => (
-  <article className={css(styles.card)} key={id}>
-    <p><strong>{item}</strong></p>
-    <p>{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
+  <li className={css(styles.card)} key={id}>
     <img className={css(styles.img)} src={icon} alt="icone" />
+    <h1>{item}</h1>
+    <p>{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
     {option ? (
       <form>
+        <hr />
         <p>
           Opções de hambúrguer:
         </p>
@@ -46,6 +54,7 @@ const Menu = ({
     {
       add ? (
         <form>
+          <hr />
           <p>
             Adicionais:
           </p>
@@ -61,7 +70,7 @@ const Menu = ({
       ) : ''
     }
     <Button handleClick={handleClick} name="Adicionar" />
-  </article>
+  </li>
 );
 
 

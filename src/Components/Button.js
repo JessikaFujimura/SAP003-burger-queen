@@ -7,12 +7,22 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 'auto',
     alignSelf: 'center',
-    margin: '2%',
-    color: '#420029',
-    border: '3px solid #420029',
-    borderRadius: '15px',
-    fontSize: '120%',
-    padding: '4%',
+    color: '#BF3904',
+    border: '2px solid #BF3904',
+    borderRadius: '10px',
+    fontSize: '1rem',
+    padding: '1.5vh',
+    cursor: 'pointer',
+    margin: '1%',
+    ':focus': {
+      backgroundColor: '#420029',
+      color: 'white',
+    },
+    '@media (min-width: 768px)': {
+      border: '3px solid #BF3904',
+      borderRadius: '15px',
+      fontSize: '1.2rem',
+    },
   },
 });
 

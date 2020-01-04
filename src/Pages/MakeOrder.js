@@ -15,15 +15,27 @@ const styles = StyleSheet.create({
   },
   menu: {
     width: '50vw',
+    border: '2px solid #586B9F',
+    borderRadius: '7vh',
+    padding: '3vh 0 8vh',
+    boxSizing: 'border-box',
+    backgroundColor: '#F1F1F1',
+    margin: '2% 0 2% 1%',
   },
   commands: {
+    boxSizing: 'border-box',
     width: '50vw',
-    border: '1px solid #420029',
+    border: '2px solid #586B9F',
+    borderRadius: '7vh',
+    padding: '3vh 0 8vh',
+    backgroundColor: '#F1F1F1',
+    margin: '2% 1% 2% 0',
   },
   commandsList: {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    marginTop: '5%',
   },
   menuItem: {
     display: 'flex',
@@ -31,14 +43,15 @@ const styles = StyleSheet.create({
     flexFlow: 'row wrap',
   },
   title: {
-    fontSize: '180%',
+    fontSize: '3rem',
+    fontFamily: 'Merienda, cursive',
     fontWeight: 'bolder',
     margin: '5%',
   },
   total: {
     display: 'flex',
     justifyContent: 'space-around',
-    fontSize: '120%',
+    fontSize: '1.5em',
     backgroundColor: '#BF3904',
     margin: '7% 0',
   },
@@ -216,7 +229,7 @@ const MakeOrder = () => {
           <p>Total </p>
           <p>{order.reduce(((sumTotal, i) => sumTotal + i.total), 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
         </div>
-        <Button name="Salvar" id="btnSave" handleClick={() => newOrder()} />
+        <Button name="Finalizar Pedido" id="btnFinishOrder" handleClick={() => newOrder()} />
       </section>
     </main>
   );
