@@ -23,30 +23,30 @@ const Order = ({
   id, client, orderClient, table, handleClick, date, time, nameBtn, leadTime, status,
 }) => (
   <li className={css(styles.order)} key={id}>
-    <p>
-      <strong>Data: </strong>
+    <span>
+      <b>Data: </b>
       {date}
-    </p>
-    <p>
-      <strong>Hora: </strong>
+    </span>
+    <span>
+      <b>Hora: </b>
       {time}
-    </p>
-    <p>
-      <strong>Tempo de preparo: </strong>
+    </span>
+    <span>
+      <b>Tempo de preparo: </b>
       {leadTime}
-    </p>
-    <p>
-      <strong>Status: </strong>
+    </span>
+    <span>
+      <b>Status: </b>
       {status}
-    </p>
-    <p>
-      <strong>Mesa: </strong>
+    </span>
+    <span>
+      <b>Mesa: </b>
       {table}
-    </p>
-    <p>
-      <strong>Nome do cliente: </strong>
+    </span>
+    <span>
+      <b>Nome do cliente: </b>
       {client}
-    </p>
+    </span>
     <table className={css(styles.table)}>
       <thead>
         <tr>

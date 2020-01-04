@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 function Input({
-  id, label, type, value, handleClick,
+  id, label, type, value, handleClick, refText
 }) {
   return (
     <form>
@@ -36,6 +36,7 @@ function Input({
       </label>
       <input
         className={css(styles.input)}
+        ref={refText}
         type={type}
         id={id}
         value={value}

@@ -9,7 +9,7 @@ import List from '../Components/List';
 import Modal from '../Components/Modal';
 
 const styles = StyleSheet.create({
-  divmain: {
+  main: {
     display: 'flex',
     textAlign: 'center',
   },
@@ -79,23 +79,26 @@ const MakeOrder = () => {
       });
   }, []);
 
-
   function newOrder() {
-    const date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`;
-    const time = `${new Date().getHours()}h:${new Date().getMinutes()}m:${new Date().getSeconds()}s`;
-    if (client === '' && table === '') {
-      setShow('true');
+    const currentDate = new Date();
+    const date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+    const time = `${currentDate.getHours()}h:${currentDate.getMinutes()}m:${currentDate.getSeconds()}s`;
+    if (!client) {
+      setShow(true);
+    } else if (!table) {
+      setShow(true);
     } else {
       firebase.firestore().collection('orders').add({
         date,
         time,
-        clock: new Date().getTime(),
+        clock: currentDate.getTime(),
         leadTime: '',
         client,
         table,
         order,
         status: 'em preparação',
       }).then(
+        (docRef) => firebase.firestore().collection('orders').doc(docRef.id).update({ id: docRef.id }),
         setClient(''),
         setTable(''),
         setOrder([]),
@@ -104,8 +107,8 @@ const MakeOrder = () => {
   }
 
   function showMenu(e) {
-    const change = e.target.id;
-    setmenufilter(menu.filter((i) => i.menu === change));
+    const menuType = e.target.id;
+    setmenufilter(menu.filter((i) => i.menu === menuType));
   }
 
   function addItem(item) {
@@ -135,7 +138,11 @@ const MakeOrder = () => {
       if (item.option || item.add) {
         item.optionChosen = optionChosen;
         item.addChosen = addChosen;
-        setOrder([...order, { ...item, value: item.addChosen === 'nenhum' ? item.value : item.value + 1, total: addChosen === 'nenhum' ? item.quant * item.value : item.quant * item.value + 1 }]);
+        setOrder([...order, {
+          ...item,
+          value: item.addChosen === 'nenhum' ? item.value : item.value + 1,
+          total: addChosen === 'nenhum' ? item.quant * item.value : item.quant * item.value + 1,
+        }]);
       }
     }
   }
@@ -158,7 +165,7 @@ const MakeOrder = () => {
   }
 
   return (
-    <main className={css(styles.divmain)}>
+    <main className={css(styles.main)}>
       <Modal
         show={show}
         handleClick={() => setShow(false)}
@@ -216,8 +223,6 @@ const MakeOrder = () => {
               item={i.item}
               value={i.value}
               quant={i.quant}
-              option={i.optionChange ? i.option : []}
-              addition={i.addChange ? i.addChange : []}
               removeClick={() => deleteItem(i)}
               addClick={() => btnAddItem(i)}
               optionChosen={i.optionChosen}
@@ -229,7 +234,11 @@ const MakeOrder = () => {
           <p>Total </p>
           <p>{order.reduce(((sumTotal, i) => sumTotal + i.total), 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
         </div>
-        <Button name="Finalizar Pedido" id="btnFinishOrder" handleClick={() => newOrder()} />
+        <Button
+          name="Finalizar Pedido"
+          id="btnFinishOrder"
+          handleClick={() => newOrder()}
+        />
       </section>
     </main>
   );

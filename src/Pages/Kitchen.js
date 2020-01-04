@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   article: {
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   title: {
     color: '#E69901',
@@ -60,7 +61,7 @@ const Kitchen = () => {
   }
 
   function Archieve() {
-    
+  
   }
 
   function Delete(i) {
