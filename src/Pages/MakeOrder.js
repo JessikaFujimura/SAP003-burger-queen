@@ -145,6 +145,8 @@ const MakeOrder = () => {
         }]);
       }
     }
+    setAddChosen('');
+    setOptionChosen('');
   }
 
   function btnAddItem(item) {

@@ -12,23 +12,23 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    maxHeight: '20vh',
-    '@media (min-width: 768px)': {
-      maxHeight: '30vh',
-      padding: '3% 0 0',
+    maxHeight: '30vh',
+    padding: '3% 0 0',
+    '@media (min-width: 992px)': {
+      backgroundSize: '50%',
     },
   },
   text: {
     color: 'white',
     fontFamily: 'Ma Shan Zheng, cursive',
-    '@media (min-width: 768px)': {
-      fontSize: '1.8rem',
-    },
+    margin: '0 0 3%',
+    fontSize: '1.8rem',
   },
   img: {
-    width: '100px',
-    '@media (min-width: 768px)': {
-      width: '100%',
+    margin: 'auto',
+    width: '15vh',
+    '@media (min-width: 992px)': {
+      width: '25vh',
     },
   },
 });

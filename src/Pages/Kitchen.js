@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import Order from '../Components/Order';
+import Header from '../Components/Header';
+import Nav from '../Components/Nav';
 import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
@@ -78,7 +80,9 @@ const Kitchen = () => {
   }
 
   return (
-    <div>
+    <main>
+      <Header />
+      <Nav />
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>
           <span role="img" aria-label="Man Cook">👨‍🍳</span>
@@ -145,7 +149,7 @@ const Kitchen = () => {
           ))}
         </article>
       </section>
-    </div>
+    </main>
   );
 };
 

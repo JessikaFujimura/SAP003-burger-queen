@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { Route, Link } from 'react-router-dom';
+import Header from '../Components/Header';
+import Nav from '../Components/Nav';
 import MakeOrder from './MakeOrder';
 import Delivery from './Delivery';
 import OrderDone from './OrderDone';
@@ -37,22 +39,26 @@ const styles = StyleSheet.create({
 });
 
 const Waiter = () => (
-  <section>
-    <article className={css(styles.section)}>
-      <Link className={css(styles.link)} to="/Waiter/Order">
-        Novo Pedido
-      </Link>
-      <Link className={css(styles.link)} to="/Waiter/OrderDone">
-        Pedido Realizados
-      </Link>
-      <Link className={css(styles.link)} to="/Waiter/Delivery">
-        Entregar Pedido
-      </Link>
-    </article>
-    <Route path="/Waiter/Order" component={MakeOrder} />
-    <Route path="/Waiter/Delivery" component={Delivery} />
-    <Route path="/Waiter/OrderDone" component={OrderDone} />
-  </section>
+  <main>
+    <Header />
+    <Nav />
+    <section>
+      <article className={css(styles.section)}>
+        <Link className={css(styles.link)} to="/Waiter/Order">
+          Novo Pedido
+        </Link>
+        <Link className={css(styles.link)} to="/Waiter/OrderDone">
+          Pedido Realizados
+        </Link>
+        <Link className={css(styles.link)} to="/Waiter/Delivery">
+          Entregar Pedido
+        </Link>
+      </article>
+      <Route path="/Waiter/Order" component={MakeOrder} />
+      <Route path="/Waiter/Delivery" component={Delivery} />
+      <Route path="/Waiter/OrderDone" component={OrderDone} />
+    </section>
+  </main>
 );
 
 

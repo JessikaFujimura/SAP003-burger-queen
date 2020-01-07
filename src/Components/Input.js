@@ -4,25 +4,23 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   input: {
-    width: '80%',
+    width: '40vw',
     height: 'auto',
+    boxSizing: 'border-box',
     alignSelf: 'center',
     color: '#420029',
     border: '1px solid #586B9F',
     borderRadius: '15px 0',
-    margin: '2%',
-    padding: '3%',
-    fontSize: '0.9rem',
-    '@media (min-width: 768px)': {
-      fontSize: '1.2rem',
+    margin: '0 0 3%',
+    padding: '2%',
+    fontSize: '1.2rem',
+    '@media (min-width: 992px)': {
+      width: '40vw',
     },
   },
   text: {
-    alignSelf: 'center',
-    fontSize: '0.9rem',
-    '@media (min-width: 768px)': {
-      fontSize: '1.4rem',
-    },
+    alignSelf: 'start',
+    fontSize: '1.4rem',
   },
 });
 
@@ -30,10 +28,8 @@ function Input({
   id, label, type, value, handleClick,
 }) {
   return (
-    <form>
-      <label className={css(styles.text)} htmlFor={id}>
-        {label}
-      </label>
+    <label className={css(styles.text)} htmlFor={id}>
+      {label}
       <input
         className={css(styles.input)}
         type={type}
@@ -41,7 +37,7 @@ function Input({
         value={value}
         onChange={handleClick}
       />
-    </form>
+    </label>
   );
 }
 

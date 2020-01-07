@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
     height: 'auto',
     alignSelf: 'center',
     color: '#BF3904',
-    border: '2px solid #BF3904',
-    borderRadius: '10px',
-    fontSize: '1rem',
+    border: '3px solid #BF3904',
+    borderRadius: '15px',
+    fontSize: '1.2rem',
     padding: '1.5vh',
     cursor: 'pointer',
     margin: '1%',
@@ -18,10 +18,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#420029',
       color: 'white',
     },
-    '@media (min-width: 768px)': {
-      border: '3px solid #BF3904',
-      borderRadius: '15px',
-      fontSize: '1.2rem',
+    '@media (min-width: 992px)': {
+      padding: '3vh',
     },
   },
 });
