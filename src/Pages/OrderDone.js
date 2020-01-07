@@ -2,33 +2,37 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import Button from '../Components/Button';
-import firebase from '../utils/firebase';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   section: {
-    backgroundColor: '#420029',
+    backgroundImage: 'linear-gradient(#D3AA62, #BF3904)',
     boxSizing: 'border-box',
-    margin: '1%',
+    margin: 'auto',
     padding: '1%',
     borderRadius: '5px',
-    width: '98%',
+    width: '95vw',
   },
   article: {
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   title: {
-    color: '#E69901',
-    fontSize: '150%',
+    textAlign: 'center',
+    color: '#8D0A0A',
+    fontSize: '1.8rem',
+    fontWeight: 'bolder',
   },
   order: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#bf3904',
     margin: '10px',
     padding: '10px',
     borderRadius: '5px',
-    width: '30%',
+    backgroundColor: '#DCCEAF',
+    width: '23vw',
+    border: '5px double #8D0A0A',
   },
 });
 
@@ -36,7 +40,7 @@ const OrderDone = () => {
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    firebase.firestore().collection('orders').get()
+    firestore.collection('orders').get()
       .then((snap) => {
         snap.forEach((doc) => (
           setOrder((currency) => [...currency, { ...doc.data(), id: doc.id }])));
@@ -44,12 +48,9 @@ const OrderDone = () => {
   }, []);
 
   function Delete(item) {
-    firebase.firestore().collection('orders').doc(item.id).delete();
+    firestore.collection('orders').doc(item.id).delete();
     order.splice(order.indexOf(item), 1);
     setOrder([...order]);
-  }
-  function Edit(item) {
-    firebase.firestore().collection('orders').doc(item.id).update();
   }
 
 
@@ -60,30 +61,30 @@ const OrderDone = () => {
         <article className={css(styles.article)}>
           {order.map((i) => (
             <li className={css(styles.order)} key={i.id}>
-              <p>
+              <span>
                 <strong>Data: </strong>
                 {i.date}
-              </p>
-              <p>
+              </span>
+              <span>
                 <strong>Hora: </strong>
                 {i.time}
-              </p>
-              <p>
+              </span>
+              <span>
                 <strong>Tempo de preparo: </strong>
                 {i.leadTime}
-              </p>
-              <p>
+              </span>
+              <span>
                 <strong>Status: </strong>
                 {i.status}
-              </p>
-              <p>
+              </span>
+              <span>
                 <strong>Mesa: </strong>
                 {i.table}
-              </p>
-              <p>
+              </span>
+              <span>
                 <strong>Nome do cliente: </strong>
                 {i.client}
-              </p>
+              </span>
               <table>
                 <tr>
                   <th>Quant.</th>
@@ -96,7 +97,6 @@ const OrderDone = () => {
                   </tr>
                 ))}
               </table>
-              <Button handleClick={() => Edit(i)} name="Editar" id={i.id} />
               <Button handleClick={() => Delete(i)} name="Excluir" id={i.id} />
             </li>
           ))}

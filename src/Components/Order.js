@@ -8,11 +8,12 @@ const styles = StyleSheet.create({
   order: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#bf3904',
+    backgroundColor: '#DCCEAF',
     margin: '10px',
     padding: '10px',
     borderRadius: '5px',
-    width: '30%',
+    width: '23vw',
+    border: '5px double #8D0A0A',
   },
   table: {
     textAlign: 'center',

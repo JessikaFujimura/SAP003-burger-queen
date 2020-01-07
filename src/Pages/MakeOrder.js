@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import firebase from '../utils/firebase';
+import { firestore } from '../utils/firebase';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 import Menu from '../Components/Menu';
@@ -73,7 +73,7 @@ const MakeOrder = () => {
   const [addChosen, setAddChosen] = useState('');
 
   useEffect(() => {
-    firebase.firestore().collection('menu').get()
+    firestore.collection('menu').get()
       .then((snapshot) => {
         snapshot.forEach((doc) => setMenu((current) => [...current, doc.data()]));
       });
@@ -88,17 +88,17 @@ const MakeOrder = () => {
     } else if (!table) {
       setShow(true);
     } else {
-      firebase.firestore().collection('orders').add({
+      firestore.collection('orders').add({
         date,
         time,
         clock: currentDate.getTime(),
-        leadTime: '',
+        leadTime: '-',
         client,
         table,
         order,
         status: 'em preparação',
       }).then(
-        (docRef) => firebase.firestore().collection('orders').doc(docRef.id).update({ id: docRef.id }),
+        (docRef) => firestore.collection('orders').doc(docRef.id).update({ id: docRef.id }),
         setClient(''),
         setTable(''),
         setOrder([]),

@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import Order from '../Components/Order';
-import firebase from '../utils/firebase';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   section: {
-    backgroundColor: '#420029',
+    backgroundImage: 'linear-gradient(#D3AA62, #BF3904)',
     boxSizing: 'border-box',
-    margin: '1%',
+    margin: '3% auto',
     padding: '1%',
     borderRadius: '5px',
-    width: '98%',
+    width: '95vw',
   },
   article: {
     display: 'flex',
@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   title: {
-    color: '#E69901',
-    fontSize: '150%',
+    textAlign: 'center',
+    color: '#8D0A0A',
+    fontSize: '1.8rem',
+    fontWeight: 'bolder',
   },
 });
 
@@ -30,17 +32,17 @@ const Kitchen = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    firebase.firestore().collection('orders').where('status', '==', 'em preparação').get()
+    firestore.collection('orders').where('status', '==', 'em preparação').get()
       .then((snap) => {
         snap.forEach((doc) => (
           setOrder((currency) => [...currency, { ...doc.data(), id: doc.id }])));
       });
-    firebase.firestore().collection('orders').where('status', '==', 'pronto').get()
+    firestore.collection('orders').where('status', '==', 'pronto').get()
       .then((snap) => {
         snap.forEach((doc) => (
           setReady((currency) => [...currency, { ...doc.data(), id: doc.id }])));
       });
-    firebase.firestore().collection('orders').where('status', '==', 'entregue').get()
+    firestore.collection('orders').where('status', '==', 'entregue').get()
       .then((snap) => {
         snap.forEach((doc) => (
           setHistory((currency) => [...currency, { ...doc.data(), id: doc.id }])));
@@ -50,7 +52,7 @@ const Kitchen = () => {
   function Ready(item) {
     const timePast = (new Date().getTime() - item.clock) / 1000;
     const leadTime = `${parseInt(timePast / 3600, 10)}h:${parseInt(timePast / 60, 10)}m:${parseInt(timePast % 60, 10)}s`;
-    firebase.firestore().collection('orders').doc(item.id).update({
+    firestore.collection('orders').doc(item.id).update({
       status: 'pronto',
       leadTime,
     });
@@ -60,12 +62,17 @@ const Kitchen = () => {
     setOrder(order.filter((i) => i.status === 'em preparação'));
   }
 
-  function Archieve() {
-  
+  function Archieve(i) {
+    firestore.collection('orders').doc(i.id).update({
+      status: 'entregue',
+    });
+    i.status = 'entregue';
+    setHistory([...history, i]);
+    setReady(order.filter((item) => item.status === 'pronto'));
   }
 
   function Delete(i) {
-    firebase.firestore().collection('orders').doc(i.id).delete();
+    firestore.collection('orders').doc(i.id).delete();
     history.splice(history.indexOf(i), 1);
     setHistory([...history]);
   }
@@ -73,7 +80,11 @@ const Kitchen = () => {
   return (
     <div>
       <section className={css(styles.section)}>
-        <h4 className={css(styles.title)}>Pedidos em produção</h4>
+        <h4 className={css(styles.title)}>
+          <span role="img" aria-label="Man Cook">👨‍🍳</span>
+          Pedidos em produção
+          <span role="img" aria-label="Man Cook">👨‍🍳</span>
+        </h4>
         <article className={css(styles.article)}>
           {order.map((i) => (
             <Order
@@ -91,7 +102,11 @@ const Kitchen = () => {
         </article>
       </section>
       <section className={css(styles.section)}>
-        <h4 className={css(styles.title)}>Pedidos prontos</h4>
+        <h4 className={css(styles.title)}>
+          <span role="img" aria-label="Fork and Knife With Plate">🍽️</span>
+          Pedidos prontos
+          <span role="img" aria-label="Fork and Knife With Plate">🍽️</span>
+        </h4>
         <article className={css(styles.article)}>
           {ready.map((i) => (
             <Order
@@ -109,7 +124,11 @@ const Kitchen = () => {
         </article>
       </section>
       <section className={css(styles.section)}>
-        <h4 className={css(styles.title)}>Histórico de pedidos</h4>
+        <h4 className={css(styles.title)}>
+          <span role="img" aria-label="scrool">📜</span>
+            Histórico de pedidos
+          <span role="img" aria-label="scrool">📜</span>
+        </h4>
         <article className={css(styles.article)}>
           {history.map((i) => (
             <Order

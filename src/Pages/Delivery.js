@@ -2,12 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import Order from '../Components/Order';
-import firebase from '../utils/firebase';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   title: {
-    color: '#E69901',
-    fontSize: '150%',
+    textAlign: 'center',
+    color: '#8D0A0A',
+    fontSize: '1.8rem',
+    fontWeight: 'bolder',
+  },
+  section: {
+    boxSizing: 'border-box',
+    backgroundImage: 'linear-gradient(#D3AA62, #BF3904)',
+    margin: 'auto',
+    padding: '1%',
+    borderRadius: '5px',
+    width: '95vw',
   },
 });
 
@@ -16,7 +26,7 @@ const Delivery = () => {
   const [ready, setReady] = useState([]);
 
   useEffect(() => {
-    firebase.firestore().collection('orders').where('status', '==', 'pronto').get()
+    firestore.collection('orders').where('status', '==', 'pronto').get()
       .then((snap) => {
         snap.forEach((doc) => (
           setReady((currency) => [...currency, { ...doc.data(), id: doc.id }])));
@@ -24,7 +34,7 @@ const Delivery = () => {
   }, []);
 
   function Delivered(item) {
-    firebase.firestore().collection('orders').doc(item.id).update({
+    firestore.collection('orders').doc(item.id).update({
       status: 'entregue',
     });
     item.status = 'entregue';
@@ -33,15 +43,13 @@ const Delivery = () => {
 
 
   return (
-    <div>
-      <section>
-        <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
-        <article>
-          {ready.map((i) => (<Order id={i.id} client={i.client} table={i.table} orderClient={i.order} date={i.date} leadTime={i.leadTime} time={i.time} nameBtn="Entregue" handleClick={() => Delivered(i)} />
-          ))}
-        </article>
-      </section>
-    </div>
+    <section className={css(styles.section)}>
+      <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
+      <article>
+        {ready.map((i) => (<Order id={i.id} client={i.client} table={i.table} orderClient={i.order} date={i.date} leadTime={i.leadTime} time={i.time} nameBtn="Entregue" handleClick={() => Delivered(i)} />
+        ))}
+      </article>
+    </section>
   );
 };
 

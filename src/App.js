@@ -4,6 +4,7 @@ import Waiter from './Pages/Waiter';
 import Header from './Components/Header';
 import Nav from './Components/Nav';
 import Kitchen from './Pages/Kitchen';
+import Login from './Pages/Login';
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <BrowserRouter className="App">
       <Header />
       <Nav />
+      <Route path="/Login" component={Login} />
       <Route path="/Waiter" component={Waiter} />
       <Route path="/Kitchen" component={Kitchen} />
     </BrowserRouter>
