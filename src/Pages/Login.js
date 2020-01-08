@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import { auth } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
+import Waiter from './Waiter';
 
 const styles = StyleSheet.create({
   form: {
@@ -31,7 +32,9 @@ const Login = () => {
   const [password, setPassword] = useState();
 
   function SingIn() {
-    auth.signInWithEmailAndPassword(email, password);
+    auth.signInWithEmailAndPassword(email, password).then(
+      <Route path="/Waiter" component={Waiter} />,
+    );
   }
 
   return (

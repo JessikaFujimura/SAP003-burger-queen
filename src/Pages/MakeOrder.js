@@ -111,13 +111,18 @@ const MakeOrder = () => {
     setmenufilter(menu.filter((i) => i.menu === menuType));
   }
 
+  function btnAddItem(item) {
+    item.quant += 1;
+    item.total = item.quant * item.value;
+    setOrder([...order]);
+  }
+
   function addItem(item) {
     if (order.some((i) => item.id === i.id)) {
       if (item.optionChosen || item.addChosen) {
-        if (item.optionChosen.includes(optionChosen)) {
-          item.quant += 1;
-          item.total = item.quant * item.value;
-          setOrder([...order]);
+        const index = order.findIndex((i) => i.optionChosen === optionChosen && i.addChosen === addChosen);
+        if (index >= 0) {
+          btnAddItem(order[index]);
         } else {
           const quant = 1;
           const total = addChosen === 'nenhum' ? item.quant * item.value : (item.quant * item.value) + 1;
@@ -145,15 +150,8 @@ const MakeOrder = () => {
         }]);
       }
     }
-    setAddChosen('');
-    setOptionChosen('');
   }
 
-  function btnAddItem(item) {
-    item.quant += 1;
-    item.total = item.quant * item.value;
-    setOrder([...order]);
-  }
 
   function deleteItem(item) {
     if (item.quant === 1) {

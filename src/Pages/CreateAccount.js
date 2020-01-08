@@ -1,13 +1,42 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Select from 'react-select';
+import { StyleSheet, css } from 'aphrodite';
 import { auth } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
 
+const styles = StyleSheet.create({
+  form: {
+    width: '50vw',
+    margin: '5vh auto',
+  },
+  fieldset: {
+    padding: '5vw',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  legend: {
+    fontSize: '1.8rem',
+    fontWeight: 'bolder',
+  },
+  p: {
+    textAlign: 'center',
+  },
+});
+
 const CreateAccount = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
+  const [ocupation, setOcupation] = useState();
   const [password, setPassword] = useState();
+  const options = [
+    { value: '', label: '' },
+    { value: 'Waiter', label: 'Garçon' },
+    { value: 'Kitchen', label: 'Cozinheiro' },
+  ];
 
   function newAccount() {
     auth.createUserWithEmailAndPassword(email, password);
@@ -16,8 +45,8 @@ const CreateAccount = () => {
   return (
     <main>
       <Header />
-      <form>
-        <fieldset>
+      <form className={css(styles.form)}>
+        <fieldset className={css(styles.fieldset)}>
           <Input
             label="Nome"
             id="inputName"
@@ -25,11 +54,10 @@ const CreateAccount = () => {
             type="text"
             handleClick={(e) => setName(e.currentTarget.value)}
           />
-          <select>
-            <option value="">Setor</option>
-            <option value="hall">Salão</option>
-            <option value="Kitchen">Cozinha</option>
-          </select>
+          <p>
+            Ocupação:
+            <Select onChange={(opt) => setOcupation(opt.value)} options={options} />
+          </p>
           <Input
             label="Email"
             id="inputEmail"
@@ -44,7 +72,9 @@ const CreateAccount = () => {
             type="password"
             handleClick={(e) => setPassword(e.currentTarget.value)}
           />
-          <Button handleClick={() => newAccount()} name="Registrar-se" id="Create" />
+          <Link to="/Waiter">
+            <Button handleClick={() => newAccount()} name="Registrar-se" id="Create" />
+          </Link>
         </fieldset>
       </form>
     </main>
