@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   input: {
-    width: '40vw',
+    width: '70vw',
     height: 'auto',
     boxSizing: 'border-box',
     alignSelf: 'center',

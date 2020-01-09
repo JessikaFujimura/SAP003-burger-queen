@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
-import { auth } from '../utils/firebase';
+import { auth, firestore } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
-import Waiter from './Waiter';
+import Modal from '../Components/Modal';
 
 const styles = StyleSheet.create({
+  main: {
+    textAlign: 'center',
+  },
   form: {
-    width: '50vw',
+    width: '80vw',
     margin: '5vh auto',
+    '@media (min-width: 992px)': {
+      width: '50vw',
+    },
   },
   fieldset: {
     padding: '5vw',
@@ -22,23 +28,45 @@ const styles = StyleSheet.create({
     fontSize: '1.8rem',
     fontWeight: 'bolder',
   },
-  p: {
-    textAlign: 'center',
-  },
 });
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [show, setShow] = useState(false);
+  const history = useHistory();
 
   function SingIn() {
-    auth.signInWithEmailAndPassword(email, password).then(
-      <Route path="/Waiter" component={Waiter} />,
-    );
+    if (!email) {
+      setShow(true);
+    } else if (!password) {
+      setShow(true);
+    } else {
+      const uid = auth.currentUser.uid;
+      auth.signInWithEmailAndPassword(email, password).then(
+        firestore.collection('user').where('uid', '==', uid).get().then(
+          (snapshot) => {
+            snapshot.forEach((doc) => {
+              if (doc.data().ocupation === 'Waiter') {
+                history.push('/Waiter');
+              } else {
+                history.push('/Kitchen');
+              }
+            });
+          },
+        ),
+      );
+    }
   }
 
   return (
-    <main>
+    <main className={css(styles.main)}>
+      <Modal
+        show={show}
+        handleClick={() => setShow(false)}
+        text="Preencha todos os campos"
+        nameBtn="Fechar"
+      />
       <Header />
       <form className={css(styles.form)}>
         <fieldset className={css(styles.fieldset)}>
@@ -60,7 +88,7 @@ const Login = () => {
           <Button handleClick={() => SingIn()} name="Login" id="Login" />
         </fieldset>
       </form>
-      <p className={css(styles.p)}>
+      <p>
         Não tem uma conta?
         <h4><Link to="/CreateAccount">Crie uma!</Link></h4>
       </p>

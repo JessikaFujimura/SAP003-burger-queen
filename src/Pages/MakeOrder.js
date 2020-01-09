@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginTop: '5%',
   },
+  form: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginTop: '5%',
+  },
   menuItem: {
     display: 'flex',
     justifyContent: 'center',
@@ -54,11 +60,6 @@ const styles = StyleSheet.create({
     fontSize: '1.5em',
     backgroundColor: '#BF3904',
     margin: '7% 0',
-  },
-  modal: {
-    position: 'absolute',
-    filter: 'blur(0)',
-    background: 'white',
   },
 });
 
@@ -120,7 +121,11 @@ const MakeOrder = () => {
   function addItem(item) {
     if (order.some((i) => item.id === i.id)) {
       if (item.optionChosen || item.addChosen) {
-        const index = order.findIndex((i) => i.optionChosen === optionChosen && i.addChosen === addChosen);
+        const index = order.findIndex((i) => (
+          i.id === item.id
+          && i.optionChosen === optionChosen
+          && i.addChosen === addChosen
+        ));
         if (index >= 0) {
           btnAddItem(order[index]);
         } else {
@@ -202,20 +207,22 @@ const MakeOrder = () => {
       </section>
       <section className={css(styles.commands)}>
         <h4 className={css(styles.title)}>Pedido</h4>
-        <Input
-          label="Nome do cliente"
-          id="inputName"
-          value={client}
-          type="text"
-          handleClick={(e) => setClient(e.currentTarget.value)}
-        />
-        <Input
-          label="Nº da mesa"
-          id="inputTable"
-          value={table}
-          type="text"
-          handleClick={(e) => setTable(e.currentTarget.value)}
-        />
+        <form className={css(styles.form)}>
+          <Input
+            label="Nome do cliente"
+            id="inputName"
+            value={client}
+            type="text"
+            handleClick={(e) => setClient(e.currentTarget.value)}
+          />
+          <Input
+            label="Nº da mesa"
+            id="inputTable"
+            value={table}
+            type="text"
+            handleClick={(e) => setTable(e.currentTarget.value)}
+          />
+        </form>
         <article className={css(styles.commandsList)}>
           {order.map((i) => (
             <List
@@ -246,3 +253,4 @@ const MakeOrder = () => {
 
 
 export default MakeOrder;
+
