@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, useHistory } from 'react-router-dom';
+import { auth } from '../utils/firebase';
 import Header from '../Components/Header';
 import Nav from '../Components/Nav';
 import MakeOrder from './MakeOrder';
@@ -38,28 +39,35 @@ const styles = StyleSheet.create({
   },
 });
 
-const Waiter = () => (
-  <main>
-    <Header />
-    <Nav />
-    <section>
-      <article className={css(styles.section)}>
-        <Link className={css(styles.link)} to="/Waiter/Order">
-          Novo Pedido
-        </Link>
-        <Link className={css(styles.link)} to="/Waiter/OrderDone">
-          Pedido Realizados
-        </Link>
-        <Link className={css(styles.link)} to="/Waiter/Delivery">
-          Entregar Pedido
-        </Link>
-      </article>
-      <Route path="/Waiter/Order" component={MakeOrder} />
-      <Route path="/Waiter/Delivery" component={Delivery} />
-      <Route path="/Waiter/OrderDone" component={OrderDone} />
-    </section>
-  </main>
-);
+const Waiter = () => {
+  const history = useHistory();
+  return (
+    <main>
+      <Header />
+      <Nav handleClick={() => {
+        auth.signOut();
+        history.push('/');
+      }}
+      />
+      <section>
+        <article className={css(styles.section)}>
+          <Link className={css(styles.link)} to="/Waiter/Order">
+            Novo Pedido
+          </Link>
+          <Link className={css(styles.link)} to="/Waiter/OrderDone">
+            Pedido Realizados
+          </Link>
+          <Link className={css(styles.link)} to="/Waiter/Delivery">
+            Entregar Pedido
+          </Link>
+        </article>
+        <Route path="/Waiter/Order" component={MakeOrder} />
+        <Route path="/Waiter/Delivery" component={Delivery} />
+        <Route path="/Waiter/OrderDone" component={OrderDone} />
+      </section>
+    </main>
+  );
+};
 
 
 export default Waiter;

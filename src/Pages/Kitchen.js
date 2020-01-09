@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { useHistory } from 'react-router-dom';
 import Order from '../Components/Order';
 import Header from '../Components/Header';
 import Nav from '../Components/Nav';
-import { firestore } from '../utils/firebase';
+import { firestore, auth } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   section: {
@@ -31,7 +32,8 @@ const styles = StyleSheet.create({
 const Kitchen = () => {
   const [order, setOrder] = useState([]);
   const [ready, setReady] = useState([]);
-  const [history, setHistory] = useState([]);
+  const [historic, setHistoric] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     firestore.collection('orders').where('status', '==', 'em preparação').get()
@@ -47,7 +49,7 @@ const Kitchen = () => {
     firestore.collection('orders').where('status', '==', 'entregue').get()
       .then((snap) => {
         snap.forEach((doc) => (
-          setHistory((currency) => [...currency, { ...doc.data(), id: doc.id }])));
+          setHistoric((currency) => [...currency, { ...doc.data(), id: doc.id }])));
       });
   }, []);
 
@@ -69,20 +71,24 @@ const Kitchen = () => {
       status: 'entregue',
     });
     i.status = 'entregue';
-    setHistory([...history, i]);
+    setHistoric([...historic, i]);
     setReady(order.filter((item) => item.status === 'pronto'));
   }
 
   function Delete(i) {
     firestore.collection('orders').doc(i.id).delete();
-    history.splice(history.indexOf(i), 1);
-    setHistory([...history]);
+    historic.splice(historic.indexOf(i), 1);
+    setHistoric([...historic]);
   }
 
   return (
     <main>
       <Header />
-      <Nav />
+      <Nav handleClick={() => {
+        auth.signOut();
+        history.push('/');
+      }}
+      />
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>
           <span role="img" aria-label="Man Cook">👨‍🍳</span>
@@ -134,7 +140,7 @@ const Kitchen = () => {
           <span role="img" aria-label="scrool">📜</span>
         </h4>
         <article className={css(styles.article)}>
-          {history.map((i) => (
+          {historic.map((i) => (
             <Order
               client={i.client}
               table={i.table}

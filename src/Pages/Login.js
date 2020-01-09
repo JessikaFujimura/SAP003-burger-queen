@@ -42,9 +42,8 @@ const Login = () => {
     } else if (!password) {
       setShow(true);
     } else {
-      const uid = auth.currentUser.uid;
       auth.signInWithEmailAndPassword(email, password).then(
-        firestore.collection('user').where('uid', '==', uid).get().then(
+        firestore.collection('user').where('uid', '==', auth.currentUser.uid).get().then(
           (snapshot) => {
             snapshot.forEach((doc) => {
               if (doc.data().ocupation === 'Waiter') {

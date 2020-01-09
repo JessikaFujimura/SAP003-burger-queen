@@ -44,16 +44,21 @@ const CreateAccount = () => {
 
   function newAccount() {
     auth.createUserWithEmailAndPassword(email, password).then(
-      firestore.collection('user').doc(auth.currentUser.uid).set({
-        ocupation,
-        uid: auth.currentUser.uid,
+      auth.onAuthStateChanged(() => {
+        if (auth.currentUser) {
+          firestore.collection('user').add({
+            name,
+            ocupation,
+            uid: auth.currentUser.uid,
+          });
+          if (ocupation === 'Waiter') {
+            history.push('/Waiter');
+          } else {
+            history.push('/Kitchen');
+          }
+        }
       }),
     );
-    if (ocupation === 'Waiter') {
-      history.push('/Waiter');
-    } else {
-      history.push('/Kitchen');
-    }
   }
 
   return (
