@@ -5,9 +5,23 @@ import { useHistory } from 'react-router-dom';
 import Order from '../Components/Order';
 import Header from '../Components/Header';
 import Nav from '../Components/Nav';
+import header from '../Image/Header.png';
 import { firestore, auth } from '../utils/firebase';
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundImage: `url(${header})`,
+    backgroundSize: 'cover',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxHeight: '12vh',
+    padding: '3% 0 0',
+    '@media (min-width: 992px)': {
+      backgroundSize: '50%',
+    },
+  },
   section: {
     backgroundImage: 'linear-gradient(#D3AA62, #BF3904)',
     boxSizing: 'border-box',
@@ -33,6 +47,7 @@ const Kitchen = () => {
   const [order, setOrder] = useState([]);
   const [ready, setReady] = useState([]);
   const [historic, setHistoric] = useState([]);
+  const [userName, setUserName] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -51,6 +66,11 @@ const Kitchen = () => {
         snap.forEach((doc) => (
           setHistoric((currency) => [...currency, { ...doc.data(), id: doc.id }])));
       });
+    auth.onAuthStateChanged(() => {
+      if (auth.currentUser) {
+        setUserName(auth.currentUser.displayName);
+      }
+    });
   }, []);
 
   function Ready(item) {
@@ -83,11 +103,13 @@ const Kitchen = () => {
 
   return (
     <main>
-      <Header />
-      <Nav handleClick={() => {
-        auth.signOut();
-        history.push('/');
-      }}
+      <Header classname={css(styles.header)} />
+      <Nav
+        user={userName}
+        handleClick={() => {
+          auth.signOut();
+          history.push('/');
+        }}
       />
       <section className={css(styles.section)}>
         <h4 className={css(styles.title)}>

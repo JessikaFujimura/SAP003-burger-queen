@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
@@ -9,6 +11,21 @@ import List from '../Components/List';
 import Modal from '../Components/Modal';
 
 const styles = StyleSheet.create({
+  input: {
+    width: '40vw',
+    height: 'auto',
+    boxSizing: 'border-box',
+    alignSelf: 'center',
+    color: '#420029',
+    border: '1px solid #586B9F',
+    borderRadius: '15px 0',
+    margin: '0 0 3%',
+    padding: '2%',
+    fontSize: '1.2rem',
+    '@media (min-width: 992px)': {
+      width: '40vw',
+    },
+  },
   main: {
     display: 'flex',
     textAlign: 'center',
@@ -99,7 +116,9 @@ const MakeOrder = () => {
         order,
         status: 'em preparação',
       }).then(
-        (docRef) => firestore.collection('orders').doc(docRef.id).update({ id: docRef.id }),
+        (docRef) => firestore.collection('orders')
+          .doc(docRef.id)
+          .update({ id: docRef.id }),
         setClient(''),
         setTable(''),
         setOrder([]),
@@ -119,29 +138,9 @@ const MakeOrder = () => {
   }
 
   function addItem(item) {
-    if (order.some((i) => item.id === i.id)) {
-      if (item.optionChosen || item.addChosen) {
-        const index = order.findIndex((i) => (
-          i.id === item.id
-          && i.optionChosen === optionChosen
-          && i.addChosen === addChosen
-        ));
-        if (index >= 0) {
-          btnAddItem(order[index]);
-        } else {
-          const quant = 1;
-          const total = addChosen === 'nenhum' ? item.quant * item.value : (item.quant * item.value) + 1;
-          const value = addChosen === 'nenhum' ? item.value : item.value + 1;
-          setOrder([...order, {
-            ...item, optionChosen, addChosen, value, quant, total,
-          }]);
-        }
-      } else {
-        item.quant += 1;
-        item.total = item.quant * item.value;
-        setOrder([...order]);
-      }
-    } else {
+    const index = order.findIndex((i) => (
+      i.id === item.id));
+    if (index === -1) {
       item.quant = 1;
       item.total = item.quant * item.value;
       setOrder([...order, item]);
@@ -154,6 +153,25 @@ const MakeOrder = () => {
           total: addChosen === 'nenhum' ? item.quant * item.value : item.quant * item.value + 1,
         }]);
       }
+    } else if (item.optionChosen || item.addChosen) {
+      const indexItem = order.findIndex((i) => (i.optionChosen === optionChosen
+        && i.addChosen === addChosen && i.id === item.id
+      ));
+      if (indexItem >= 0) {
+        btnAddItem(order[indexItem]);
+      } else {
+        const quant = 1;
+        const total = addChosen === 'nenhum'
+          ? item.quant * item.value
+          : (item.quant * item.value) + 1;
+        const value = addChosen === 'nenhum'
+          ? item.value : item.value + 1;
+        setOrder([...order, {
+          ...item, optionChosen, addChosen, value, quant, total,
+        }]);
+      }
+    } else {
+      btnAddItem(order[index]);
     }
   }
 
@@ -190,14 +208,10 @@ const MakeOrder = () => {
           handleClick={(e) => showMenu(e)}
         />
         <article className={css(styles.menuItem)}>
-          {menufilter.map((i) => (
+          {menufilter.map((i, index) => (
             <Menu
-              id={i.id}
-              item={i.item}
-              icon={i.icon}
-              value={i.value}
-              option={i.option}
-              add={i.add}
+              key={index}
+              {...i}
               handleClick={() => addItem(i)}
               optionChosen={setOptionChosen}
               addChosen={setAddChosen}
@@ -209,6 +223,7 @@ const MakeOrder = () => {
         <h4 className={css(styles.title)}>Pedido</h4>
         <form className={css(styles.form)}>
           <Input
+            classname={css(styles.input)}
             label="Nome do cliente"
             id="inputName"
             value={client}
@@ -216,6 +231,7 @@ const MakeOrder = () => {
             handleClick={(e) => setClient(e.currentTarget.value)}
           />
           <Input
+            classname={css(styles.input)}
             label="Nº da mesa"
             id="inputTable"
             value={table}
@@ -224,16 +240,12 @@ const MakeOrder = () => {
           />
         </form>
         <article className={css(styles.commandsList)}>
-          {order.map((i) => (
+          {order.map((i, index) => (
             <List
-              key={i.id}
-              item={i.item}
-              value={i.value}
-              quant={i.quant}
+              key={index}
+              {...i}
               removeClick={() => deleteItem(i)}
               addClick={() => btnAddItem(i)}
-              optionChosen={i.optionChosen}
-              addChosen={i.addChosen}
             />
           ))}
         </article>
@@ -253,4 +265,3 @@ const MakeOrder = () => {
 
 
 export default MakeOrder;
-

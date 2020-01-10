@@ -2,22 +2,9 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { Link } from 'react-router-dom';
 import logo from '../Image/LogoBlack.png';
-import header from '../Image/Header.png';
+
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundImage: `url(${header})`,
-    backgroundSize: 'cover',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxHeight: '30vh',
-    padding: '3% 0 0',
-    '@media (min-width: 992px)': {
-      backgroundSize: '50%',
-    },
-  },
   text: {
     color: 'white',
     fontFamily: 'Ma Shan Zheng, cursive',
@@ -33,11 +20,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function Header() {
+function Header({ classname, text }) {
   return (
-    <header className={css(styles.header)}>
+    <header className={classname}>
       <Link to="/"><img className={css(styles.img)} src={logo} alt="logo" /></Link>
-      <p className={css(styles.text)}>Seu fast-food 24 Horas</p>
+      <p className={css(styles.text)}>{text}</p>
     </header>
   );
 }

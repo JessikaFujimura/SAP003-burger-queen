@@ -1,30 +1,18 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 const styles = StyleSheet.create({
   nav: {
     display: 'flex',
     flexDirection: 'row',
-    // listStyle: 'none',
     justifyContent: 'space-around',
-    // backgroundColor: '#E7D7A5',
-    // padding: '20px',
-    // margin: '0',
-    // borderTop: '10px double #5B2D1F',
-    // borderBottom: '2px dotted #5B2D1F',
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    zIndex: '10',
   },
-  // link: {
-  //   fontSize: '2.5rem',
-  //   border: '2px solid #5B2D1F',
-  //   borderTopLeftRadius: '150px',
-  //   borderTopRightRadius: '150px',
-  //   textDecoration: 'none',
-  //   fontWeight: 'bolder',
-  //   padding: '10px 100px',
-  //   color: '#5B2D1F',
-  //   backgroundImage: 'linear-gradient(#BF3904, #D3AA62)',
-  // },
 });
 
 const Nav = ({
@@ -32,7 +20,7 @@ const Nav = ({
 }) => (
   <nav className={css(styles.nav)}>
     <p>{user}</p>
-    <button type="button" onClick={handleClick}>Log out</button>
+    <Button name="Log out" id="btnLogOut" handleClick={handleClick} />
   </nav>
 );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { Route, Link, useHistory } from 'react-router-dom';
 import { auth } from '../utils/firebase';
@@ -7,8 +7,22 @@ import Nav from '../Components/Nav';
 import MakeOrder from './MakeOrder';
 import Delivery from './Delivery';
 import OrderDone from './OrderDone';
+import header from '../Image/Header.png';
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundImage: `url(${header})`,
+    backgroundSize: 'cover',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxHeight: '12vh',
+    padding: '3% 0 0',
+    '@media (min-width: 992px)': {
+      backgroundSize: '50%',
+    },
+  },
   section: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -41,13 +55,26 @@ const styles = StyleSheet.create({
 
 const Waiter = () => {
   const history = useHistory();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    auth.onAuthStateChanged(() => {
+      if (auth.currentUser) {
+        setUser(auth.currentUser.displayName);
+      }
+    });
+  }, []);
+
+
   return (
     <main>
-      <Header />
-      <Nav handleClick={() => {
-        auth.signOut();
-        history.push('/');
-      }}
+      <Header classname={css(styles.header)} />
+      <Nav
+        user={user}
+        handleClick={() => {
+          auth.signOut();
+          history.push('/');
+        }}
       />
       <section>
         <article className={css(styles.section)}>

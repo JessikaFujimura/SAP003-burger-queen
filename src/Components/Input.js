@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   input: {
-    width: '70vw',
+    width: '50vw',
     height: 'auto',
     boxSizing: 'border-box',
     alignSelf: 'center',
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
 });
 
 function Input({
-  id, label, type, value, handleClick,
+  id, label, type, value, handleClick, classname,
 }) {
   return (
     <label className={css(styles.text)} htmlFor={id}>
       {label}
       <input
-        className={css(styles.input)}
+        className={classname}
         type={type}
         id={id}
         value={value}
@@ -43,6 +43,7 @@ function Input({
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
+  classname: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
