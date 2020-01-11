@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Select from 'react-select';
 import { StyleSheet, css } from 'aphrodite';
 import Swal from 'sweetalert2';
@@ -18,11 +18,12 @@ const styles = StyleSheet.create({
     color: '#420029',
     border: '1px solid #586B9F',
     borderRadius: '15px 0',
-    margin: '0 0 3%',
+    margin: '0 0 5%',
     padding: '2%',
-    fontSize: '1.2rem',
+    fontSize: '1rem',
     '@media (min-width: 992px)': {
       width: '40vw',
+      fontSize: '1.2rem',
     },
   },
   header: {
@@ -32,10 +33,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    maxHeight: '30vh',
+    maxHeight: '20vw',
     padding: '3% 0 0',
     '@media (min-width: 992px)': {
-      backgroundSize: '50%',
+      backgroundSize: '50vw',
+      maxHeight: '9vw',
     },
   },
   main: {
@@ -49,21 +51,25 @@ const styles = StyleSheet.create({
     },
   },
   fieldset: {
-    padding: '5vw',
+    padding: '1vw 5vw',
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
   },
   legend: {
-    fontSize: '1.8rem',
+    fontSize: '1.3rem',
     fontWeight: 'bolder',
+    '@media (min-width: 992px)': {
+      fontSize: '1.8rem',
+    },
   },
   text: {
-    fontSize: '1.4rem',
+    fontSize: '1rem',
+    margin: '0 0 5%',
+    '@media (min-width: 992px)': {
+      fontSize: '1.4rem',
+    },
   },
-  select: {
-    borderRadius: '15px 0',
-  }
 });
 
 const CreateAccount = () => {
@@ -106,7 +112,7 @@ const CreateAccount = () => {
     ).catch((error) => {
       if (error.code === 'auth/invalid-email') {
         Swal.fire({
-          text: 'Usuário não encontrado',
+          text: 'Email inválido',
           icon: 'warning',
         });
       } else if (error.code === 'auth/weak-password') {
@@ -141,13 +147,13 @@ const CreateAccount = () => {
             type="text"
             handleClick={(e) => setName(e.currentTarget.value)}
           />
-          <p className={css(styles.text)}>
+          <span className={css(styles.text)}>
             Ocupação:
             <Select
               onChange={(opt) => setOcupation(opt.value)}
               options={options}
             />
-          </p>
+          </span>
           <Input
             placeholder="example@example.com"
             classname={css(styles.input)}
@@ -169,6 +175,10 @@ const CreateAccount = () => {
           <Button handleClick={() => newAccount()} name="Registrar-se" id="Create" />
         </fieldset>
       </form>
+      <p>
+        <span>Já tem conta? </span>
+        <strong><Link to="/">Faça Login!</Link></strong>
+      </p>
     </main>
   );
 };

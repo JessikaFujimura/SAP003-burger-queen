@@ -63,11 +63,11 @@ const OrderDone = () => {
             <li className={css(styles.order)} key={i.id}>
               <span>
                 <strong>Data: </strong>
-                {i.date}
+                {i.time.toDate().toLocaleString('pt-BR').split(' ')[0]}
               </span>
               <span>
                 <strong>Hora: </strong>
-                {i.time}
+                {i.time.toDate().toLocaleString('pt-BR').split(' ')[1]}
               </span>
               <span>
                 <strong>Tempo de preparo: </strong>

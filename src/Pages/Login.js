@@ -6,7 +6,6 @@ import { auth, firestore } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
-import Modal from '../Components/Modal';
 import header from '../Image/Header.png';
 
 const styles = StyleSheet.create({
@@ -32,10 +31,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    maxHeight: '30vh',
+    maxHeight: '20vw',
     padding: '3% 0 0',
     '@media (min-width: 992px)': {
-      backgroundSize: '50%',
+      backgroundSize: '50vw',
+      maxHeight: '9vw',
     },
   },
   main: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
   },
   fieldset: {
-    padding: '5vw',
+    padding: '1vw 5vw',
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [show, setShow] = useState(false);
   const history = useHistory();
 
 
@@ -120,12 +119,6 @@ const Login = () => {
 
   return (
     <main className={css(styles.main)}>
-      <Modal
-        show={show}
-        handleClick={() => setShow(false)}
-        text="Preencha todos os campos"
-        nameBtn="Fechar"
-      />
       <Header
         classname={css(styles.header)}
         text="Seu fast-food 24 Horas"
@@ -136,7 +129,7 @@ const Login = () => {
           <Input
             classname={css(styles.input)}
             placeholder="example@example.com"
-            label="Email"
+            label="Email:"
             id="inputEmail"
             value={email}
             type="text"
@@ -145,7 +138,7 @@ const Login = () => {
           <Input
             classname={css(styles.input)}
             placeholder="*******"
-            label="Senha"
+            label="Senha:"
             id="inputSenha"
             value={password}
             type="password"
@@ -155,8 +148,8 @@ const Login = () => {
         </fieldset>
       </form>
       <p>
-        Não tem uma conta?
-        <h4><Link to="/CreateAccount">Crie uma!</Link></h4>
+        <span>Não tem uma conta? </span>
+        <strong><Link to="/CreateAccount">Crie uma!</Link></strong>
       </p>
     </main>
   );

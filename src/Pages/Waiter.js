@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     maxHeight: '12vh',
     padding: '3% 0 0',
     '@media (min-width: 992px)': {
+      maxHeight: '25vh',
       backgroundSize: '50%',
     },
   },
