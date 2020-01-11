@@ -25,12 +25,13 @@ const styles = StyleSheet.create({
 });
 
 function Input({
-  id, label, type, value, handleClick, classname,
+  id, label, type, value, handleClick, classname,placeholder,
 }) {
   return (
     <label className={css(styles.text)} htmlFor={id}>
       {label}
       <input
+        placeholder={placeholder}
         className={classname}
         type={type}
         id={id}
@@ -43,6 +44,7 @@ function Input({
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   classname: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

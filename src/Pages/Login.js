@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
+import Swal from 'sweetalert2';
 import { auth, firestore } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
@@ -68,26 +69,51 @@ const Login = () => {
 
   function SingIn() {
     if (!email) {
-      setShow(true);
+      Swal.fire({
+        text: 'Prencha o campo de "email"',
+        icon: 'warning',
+      });
     } else if (!password) {
-      setShow(true);
+      Swal.fire({
+        text: 'Prencha o campo de "senha"',
+        icon: 'warning',
+      });
     } else {
       auth.signInWithEmailAndPassword(email, password).then(
         firestore.collection('user').get()
           .then(
             (snapshot) => {
               snapshot.forEach((doc) => {
-                if (doc.data().ocupation === 'Waiter') {
-                  //export const acess = 'Waiter';
-                  history.push('/Waiter');
-                } else {
-                  //export const acess = 'Kitchen';
-                  history.push('/Kitchen');
+                if (auth.currentUser) {
+                  if (doc.data().uid === auth.currentUser.uid) {
+                    if (doc.data().ocupation === 'Waiter') {
+                      history.push('/Waiter');
+                    } else {
+                      history.push('/Kitchen');
+                    }
+                  }
                 }
               });
             },
           ),
-      );
+      ).catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          Swal.fire({
+            text: 'Usuário não encontrado',
+            icon: 'warning',
+          });
+        } else if (error.code === 'auth/wrong-password') {
+          Swal.fire({
+            text: 'Senha errada',
+            icon: 'warning',
+          });
+        } else {
+          Swal.fire({
+            text: 'Usuário não cadastrado',
+            icon: 'warning',
+          });
+        }
+      });
     }
   }
 
@@ -109,6 +135,7 @@ const Login = () => {
           <legend className={css(styles.legend)}>Log in</legend>
           <Input
             classname={css(styles.input)}
+            placeholder="example@example.com"
             label="Email"
             id="inputEmail"
             value={email}
@@ -117,6 +144,7 @@ const Login = () => {
           />
           <Input
             classname={css(styles.input)}
+            placeholder="*******"
             label="Senha"
             id="inputSenha"
             value={password}

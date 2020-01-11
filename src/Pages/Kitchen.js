@@ -74,8 +74,12 @@ const Kitchen = () => {
   }, []);
 
   function Ready(item) {
-    const timePast = (new Date().getTime() - item.clock) / 1000;
-    const leadTime = `${parseInt(timePast / 3600, 10)}h:${parseInt(timePast / 60, 10)}m:${parseInt(timePast % 60, 10)}s`;
+    const timePast = ((new Date().getTime() / 1000) - item.time.seconds);
+    const leadTime = `
+      ${parseInt(timePast / 3600, 10)}h:
+      ${parseInt(timePast / 60, 10) - parseInt(((timePast / 3600) * 60), 10)}m:
+      ${parseInt(timePast % 60, 10)}s
+      `;
     firestore.collection('orders').doc(item.id).update({
       status: 'pronto',
       leadTime,
@@ -89,10 +93,11 @@ const Kitchen = () => {
   function Archieve(i) {
     firestore.collection('orders').doc(i.id).update({
       status: 'entregue',
-    });
-    i.status = 'entregue';
-    setHistoric([...historic, i]);
-    setReady(order.filter((item) => item.status === 'pronto'));
+    }).then(
+      i.status = 'entregue',
+      setHistoric([...historic, i]),
+      setReady(order.filter((item) => item.status === 'pronto')),
+    );
   }
 
   function Delete(i) {
@@ -124,9 +129,9 @@ const Kitchen = () => {
               client={i.client}
               table={i.table}
               orderClient={i.order}
-              date={i.date}
+              date={i.time.toDate().toLocaleString('pt-BR').split(' ')[0]}
+              time={i.time.toDate().toLocaleString('pt-BR').split(' ')[1]}
               nameBtn="Pronto"
-              time={i.time}
               status={i.status}
               handleClick={() => Ready(i)}
             />
@@ -145,8 +150,8 @@ const Kitchen = () => {
               client={i.client}
               table={i.table}
               orderClient={i.order}
-              date={i.date}
-              time={i.time}
+              date={i.time.toDate().toLocaleString('pt-BR').split(' ')[0]}
+              time={i.time.toDate().toLocaleString('pt-BR').split(' ')[1]}
               leadTime={i.leadTime}
               nameBtn="Arquivar"
               status={i.status}
@@ -167,8 +172,8 @@ const Kitchen = () => {
               client={i.client}
               table={i.table}
               orderClient={i.order}
-              date={i.date}
-              time={i.time}
+              date={i.time[0]}
+              time={i.time[1]}
               leadTime={i.leadTime}
               nameBtn="Deletar"
               status={i.status}

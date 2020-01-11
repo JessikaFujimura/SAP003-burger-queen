@@ -5,18 +5,21 @@ import Kitchen from './Pages/Kitchen';
 import CreateAccount from './Pages/CreateAccount';
 import Login from './Pages/Login';
 import Denied from './Pages/Denied';
-
+//import { auth } from './utils/firebase';
 
 const PrivatePage = (
   { component: Component, ...rest },
-) => (
-  <Route
-    {...rest}
-    render={(props) => (true ? (<Component {...props} />) : (
-      <Redirect to={{ pathname: '/Denied', state: { from: props.location } }} />
-    ))}
-  />
-);
+) => {
+  //const user = auth.currentUser;
+  return (
+    <Route
+      {...rest}
+      render={(props) => (true ? (<Component {...props} />) : (
+        <Redirect to={{ pathname: '/Denied', state: { from: props.location } }} />
+      ))}
+    />
+  );
+};
 
 
 function App() {

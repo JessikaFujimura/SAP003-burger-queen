@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import { StyleSheet, css } from 'aphrodite';
+import Swal from 'sweetalert2';
 import { auth, firestore } from '../utils/firebase';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
@@ -60,6 +61,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: '1.4rem',
   },
+  select: {
+    borderRadius: '15px 0',
+  }
 });
 
 const CreateAccount = () => {
@@ -75,6 +79,12 @@ const CreateAccount = () => {
   ];
 
   function newAccount() {
+    if (!name && !email && !ocupation && !password) {
+      Swal.fire({
+        text: 'Prencha o todos os campos',
+        icon: 'warning',
+      });
+    }
     auth.createUserWithEmailAndPassword(email, password).then(
       auth.onAuthStateChanged(() => {
         if (auth.currentUser) {
@@ -86,14 +96,31 @@ const CreateAccount = () => {
           auth.currentUser.updateProfile({
             displayName: name,
           });
+          if (ocupation === 'Waiter') {
+            history.push('/Waiter');
+          } else {
+            history.push('/Kitchen');
+          }
         }
       }),
-    );
-    if (ocupation === 'Waiter') {
-      history.push('/Waiter');
-    } else {
-      history.push('/Kitchen');
-    }
+    ).catch((error) => {
+      if (error.code === 'auth/invalid-email') {
+        Swal.fire({
+          text: 'Usuário não encontrado',
+          icon: 'warning',
+        });
+      } else if (error.code === 'auth/weak-password') {
+        Swal.fire({
+          text: 'Senha deve conter no mínino 6 caracteres',
+          icon: 'warning',
+        });
+      } else if (error.code === 'auth/email-already-in-use') {
+        Swal.fire({
+          text: 'Usuário já cadastrado',
+          icon: 'warning',
+        });
+      }
+    });
   }
 
   return (
@@ -106,8 +133,9 @@ const CreateAccount = () => {
         <fieldset className={css(styles.fieldset)}>
           <legend className={css(styles.legend)}>Criar conta</legend>
           <Input
+            placeholder="Nome e Sobrenome"
             classname={css(styles.input)}
-            label="Nome"
+            label="Nome:"
             id="inputName"
             value={name}
             type="text"
@@ -115,19 +143,24 @@ const CreateAccount = () => {
           />
           <p className={css(styles.text)}>
             Ocupação:
-            <Select onChange={(opt) => setOcupation(opt.value)} options={options} />
+            <Select
+              onChange={(opt) => setOcupation(opt.value)}
+              options={options}
+            />
           </p>
           <Input
+            placeholder="example@example.com"
             classname={css(styles.input)}
-            label="Email"
+            label="Email:"
             id="inputEmail"
             value={email}
             type="text"
             handleClick={(e) => setEmail(e.currentTarget.value)}
           />
           <Input
+            placeholder="Deve conter no mínimo 6 caracteres"
             classname={css(styles.input)}
-            label="Senha"
+            label="Senha:"
             id="inputSenha"
             value={password}
             type="password"

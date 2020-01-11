@@ -3,6 +3,8 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import Swal from 'sweetalert2';
+import firebase from 'firebase/app';
 import { firestore } from '../utils/firebase';
 import Input from '../Components/Input';
 import Button from '../Components/Button';
@@ -98,18 +100,19 @@ const MakeOrder = () => {
   }, []);
 
   function newOrder() {
-    const currentDate = new Date();
-    const date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-    const time = `${currentDate.getHours()}h:${currentDate.getMinutes()}m:${currentDate.getSeconds()}s`;
     if (!client) {
-      setShow(true);
+      Swal.fire({
+        text: 'Prencha o campo de "nome do cliente"',
+        icon: 'warning',
+      });
     } else if (!table) {
-      setShow(true);
+      Swal.fire({
+        text: 'Prencha o campo de "número da mesa"',
+        icon: 'warning',
+      });
     } else {
       firestore.collection('orders').add({
-        date,
-        time,
-        clock: currentDate.getTime(),
+        time: firebase.firestore.FieldValue.serverTimestamp(),
         leadTime: '-',
         client,
         table,
@@ -122,6 +125,10 @@ const MakeOrder = () => {
         setClient(''),
         setTable(''),
         setOrder([]),
+        Swal.fire({
+          text: 'Pedido enviado com sucesso!',
+          icon: 'success',
+        }),
       );
     }
   }

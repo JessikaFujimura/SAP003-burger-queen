@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faClock, faCalendarAlt, faUser, faHourglassEnd,
+} from '@fortawesome/free-solid-svg-icons';
 import Button from './Button';
-
 
 const styles = StyleSheet.create({
   order: {
@@ -23,29 +26,29 @@ const styles = StyleSheet.create({
 const Order = ({
   id, client, orderClient, table, handleClick, date, time, nameBtn, leadTime, status,
 }) => (
-  <li className={css(styles.order)} key={id}>
+  <li className={css(styles.order)}>
+    <p className={css(styles.order)}>
+      <b>Status: </b>
+      {status}
+    </p>
     <span>
-      <b>Data: </b>
+      <FontAwesomeIcon icon={faCalendarAlt} />
       {date}
     </span>
     <span>
-      <b>Hora: </b>
+      <FontAwesomeIcon icon={faClock} />
       {time}
     </span>
     <span>
-      <b>Tempo de preparo: </b>
+      <FontAwesomeIcon icon={faHourglassEnd} />
       {leadTime}
-    </span>
-    <span>
-      <b>Status: </b>
-      {status}
     </span>
     <span>
       <b>Mesa: </b>
       {table}
     </span>
     <span>
-      <b>Nome do cliente: </b>
+      <FontAwesomeIcon icon={faUser} />
       {client}
     </span>
     <table className={css(styles.table)}>
