@@ -101,24 +101,17 @@ const Login = () => {
         icon: 'warning',
       });
     } else {
-      auth.signInWithEmailAndPassword(email, password).then(
-        firestore.collection('user').get()
-          .then(
-            (snapshot) => {
-              snapshot.forEach((doc) => {
-                if (auth.currentUser) {
-                  if (doc.data().uid === auth.currentUser.uid) {
-                    if (doc.data().ocupation === 'Waiter') {
-                      history.push('/Waiter');
-                    } else {
-                      history.push('/Kitchen');
-                    }
-                  }
-                }
-              });
-            },
-          ),
-      )
+      auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          firestore.collection('user').doc(user.user.uid).get()
+            .then((doc) => {
+              if (doc.data().ocupation === 'Waiter') {
+                history.push('/Waiter');
+              } else {
+                history.push('/Kitchen');
+              }
+            });
+        })
         .catch((error) => {
           if (error.code === 'auth/user-not-found') {
             Swal.fire({

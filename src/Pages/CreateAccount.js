@@ -115,28 +115,25 @@ const CreateAccount = () => {
       });
     } else {
       auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((user) => {
           if (ocupation === 'Waiter') {
             history.push('/Waiter');
           } else {
             history.push('/Kitchen');
           }
+          firestore.collection('user')
+            .doc(user.user.uid)
+            .set({
+              name,
+              ocupation,
+              uid: user.user.uid,
+            })
+            .then(
+              auth.currentUser.updateProfile({
+                displayName: name,
+              }),
+            );
         })
-        .then(
-          auth.onAuthStateChanged(() => {
-            if (auth.currentUser) {
-              firestore.collection('user').add({
-                name,
-                ocupation,
-                uid: auth.currentUser.uid,
-              }).then(
-                auth.currentUser.updateProfile({
-                  displayName: name,
-                }),
-              );
-            }
-          }),
-        )
         .catch((error) => {
           if (error.code === 'auth/invalid-email') {
             Swal.fire({
@@ -168,7 +165,9 @@ const CreateAccount = () => {
       />
       <form className={css(styles.form)}>
         <fieldset className={css(styles.fieldset)}>
-          <legend className={css(styles.legend)}>Criar conta</legend>
+          <legend className={css(styles.legend)}>
+            Criar conta
+          </legend>
           <Input
             placeholder="Nome e Sobrenome"
             classname={css(styles.input)}

@@ -58,9 +58,9 @@ const OrderInProduction = () => {
   return (
     <section className={css(styles.section)}>
       <h4 className={css(styles.title)}>
-        <span role="img" aria-label="Man Cook">👨‍🍳</span>
+        <span role="img" aria-label="Man Cook">👨‍🍳 </span>
         Pedidos em produção
-          <span role="img" aria-label="Man Cook">👨‍🍳</span>
+        <span role="img" aria-label="Man Cook"> 👨‍🍳</span>
       </h4>
       <article className={css(styles.article)}>
         {order.map((i) => (
