@@ -5,16 +5,16 @@ import Kitchen from './Pages/Kitchen';
 import CreateAccount from './Pages/CreateAccount';
 import Login from './Pages/Login';
 import Denied from './Pages/Denied';
-//import { auth } from './utils/firebase';
+import { auth } from './utils/firebase';
 
 const PrivatePage = (
   { component: Component, ...rest },
 ) => {
-  //const user = auth.currentUser;
+  const user = auth.currentUser;
   return (
     <Route
       {...rest}
-      render={(props) => (true ? (<Component {...props} />) : (
+      render={(props) => (user ? (<Component {...props} />) : (
         <Redirect to={{ pathname: '/Denied', state: { from: props.location } }} />
       ))}
     />
@@ -28,8 +28,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/CreateAccount" component={CreateAccount} />
-        <PrivatePage path="/Waiter" component={Waiter} />
         <PrivatePage path="/Kitchen" component={Kitchen} />
+        <PrivatePage path="/Waiter" component={Waiter} />
         <Route path="/Denied" component={Denied} />
       </Switch>
     </BrowserRouter>

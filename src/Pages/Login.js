@@ -9,6 +9,29 @@ import Button from '../Components/Button';
 import header from '../Image/Header.png';
 
 const styles = StyleSheet.create({
+  button: {
+    width: 'auto',
+    height: 'auto',
+    alignSelf: 'center',
+    color: '#BF3904',
+    border: '3px solid #BF3904',
+    borderRadius: '15px',
+    fontSize: '1.2rem',
+    padding: '1.5vh',
+    cursor: 'pointer',
+    margin: '1%',
+    ':focus': {
+      backgroundColor: '#420029',
+      color: 'white',
+    },
+    '@media (min-width: 992px)': {
+      padding: '3vh',
+      ':hover': {
+        backgroundColor: '#420029',
+        color: 'white',
+      },
+    },
+  },
   input: {
     width: '70vw',
     height: 'auto',
@@ -95,24 +118,25 @@ const Login = () => {
               });
             },
           ),
-      ).catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          Swal.fire({
-            text: 'Usuário não encontrado',
-            icon: 'warning',
-          });
-        } else if (error.code === 'auth/wrong-password') {
-          Swal.fire({
-            text: 'Senha errada',
-            icon: 'warning',
-          });
-        } else {
-          Swal.fire({
-            text: 'Usuário não cadastrado',
-            icon: 'warning',
-          });
-        }
-      });
+      )
+        .catch((error) => {
+          if (error.code === 'auth/user-not-found') {
+            Swal.fire({
+              text: 'Usuário não encontrado',
+              icon: 'warning',
+            });
+          } else if (error.code === 'auth/wrong-password') {
+            Swal.fire({
+              text: 'Senha errada',
+              icon: 'warning',
+            });
+          } else {
+            Swal.fire({
+              text: 'Usuário não cadastrado',
+              icon: 'warning',
+            });
+          }
+        });
     }
   }
 
@@ -122,6 +146,7 @@ const Login = () => {
       <Header
         classname={css(styles.header)}
         text="Seu fast-food 24 Horas"
+        link="/"
       />
       <form className={css(styles.form)}>
         <fieldset className={css(styles.fieldset)}>
@@ -144,7 +169,12 @@ const Login = () => {
             type="password"
             handleClick={(e) => setPassword(e.currentTarget.value)}
           />
-          <Button handleClick={() => SingIn()} name="Login" id="Login" />
+          <Button
+            handleClick={() => SingIn()}
+            name="Login"
+            id="Login"
+            classname={css(styles.button)}
+          />
         </fieldset>
       </form>
       <p>

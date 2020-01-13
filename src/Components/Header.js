@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
   },
   img: {
-    margin: 'auto',
+    margin: 'auto 1vw',
     width: '15vw',
     '@media (min-width: 992px)': {
       width: '8vw',
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function Header({ classname, text }) {
+function Header({ classname, text, link }) {
   return (
     <header className={classname}>
-      <Link to="/"><img className={css(styles.img)} src={logo} alt="logo" /></Link>
+      <Link to={link}><img className={css(styles.img)} src={logo} alt="logo" /></Link>
       <p className={css(styles.text)}>{text}</p>
     </header>
   );
@@ -35,6 +35,7 @@ function Header({ classname, text }) {
 Header.propTypes = {
   classname: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default Header;

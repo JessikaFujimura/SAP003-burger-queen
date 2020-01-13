@@ -8,50 +8,115 @@ import {
 import Button from './Button';
 
 const styles = StyleSheet.create({
+  button: {
+    width: 'auto',
+    height: 'auto',
+    alignSelf: 'center',
+    color: '#BF3904',
+    border: '3px solid #BF3904',
+    borderRadius: '15px',
+    fontSize: '1.2rem',
+    padding: '1.5vh',
+    cursor: 'pointer',
+    margin: '1%',
+    ':focus': {
+      backgroundColor: '#420029',
+      color: 'white',
+    },
+    '@media (min-width: 992px)': {
+      padding: '3vh',
+      ':hover': {
+        backgroundColor: '#420029',
+        color: 'white',
+      },
+    },
+  },
   order: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#DCCEAF',
-    margin: '10px',
-    padding: '10px',
-    borderRadius: '5px',
-    width: '23vw',
+    boxSizing: 'border-box',
+    margin: '1vw',
+    padding: '1vw',
+    borderRadius: '2vw',
+    width: '43vw',
     border: '5px double #8D0A0A',
+    fontSize: '1rem',
+    '@media (min-width: 992px)': {
+      width: '25vw',
+      fontSize: '1.2rem',
+    },
   },
   table: {
     textAlign: 'center',
+    boxSizing: 'border-box',
+  },
+  left: {
+    borderRight: '1px solid black',
+    borderBottom: '1px solid black',
+  },
+  right: {
+    backgroundColor: '#E7D7A5',
+  },
+  ready: {
+    color: '#FAA71E',
+  },
+  wait: {
+    color: 'red',
+  },
+  delivery: {
+    color: 'green',
   },
 });
+
 
 const Order = ({
   id, client, orderClient, table, handleClick, date, time, nameBtn, leadTime, status,
 }) => (
   <li className={css(styles.order)}>
-    <p className={css(styles.order)}>
-      <b>Status: </b>
-      {status}
-    </p>
-    <span>
-      <FontAwesomeIcon icon={faCalendarAlt} />
-      {date}
-    </span>
-    <span>
-      <FontAwesomeIcon icon={faClock} />
-      {time}
-    </span>
-    <span>
-      <FontAwesomeIcon icon={faHourglassEnd} />
-      {leadTime}
-    </span>
-    <span>
-      <b>Mesa: </b>
-      {table}
-    </span>
-    <span>
-      <FontAwesomeIcon icon={faUser} />
-      {client}
-    </span>
     <table className={css(styles.table)}>
+      <thead>
+        <tr>
+          <th className={css(styles.left)}>Mesa</th>
+          <th className={css(styles.right)}>{table}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><FontAwesomeIcon icon={faUser} /></td>
+          <td>{client}</td>
+        </tr>
+        <tr>
+          <td><strong>Status:</strong></td>
+          {
+          status === 'pronto'
+            ? <td className={css(styles.ready)}>{status}</td>
+            : false
+          }
+          {
+          status === 'em preparação'
+            ? <td className={css(styles.wait)}>{status}</td>
+            : false
+          }
+          {status === 'entregue'
+            ? <td className={css(styles.delivery)}>{status}</td>
+            : false
+          }
+        </tr>
+        <tr>
+          <td><FontAwesomeIcon icon={faCalendarAlt} /></td>
+          <td>{date}</td>
+        </tr>
+        <tr>
+          <td><FontAwesomeIcon icon={faClock} /></td>
+          <td>{time}</td>
+        </tr>
+        <tr>
+          <td><FontAwesomeIcon icon={faHourglassEnd} /></td>
+          <td>{leadTime}</td>
+        </tr>
+      </tbody>
+      <br></br>
       <thead>
         <tr>
           <th>Quant.</th>
@@ -62,12 +127,22 @@ const Order = ({
         <tbody>
           <tr>
             <td>{n.quant}</td>
-            <td>{n.item}</td>
+            <td>
+              {n.optionChosen
+                ? `${n.item} de ${n.optionChosen} com ${n.addChosen}`
+                : n.item
+              }
+            </td>
           </tr>
         </tbody>
       ))}
     </table>
-    <Button handleClick={handleClick} id={id} name={nameBtn} />
+    <Button
+      handleClick={handleClick}
+      id={id}
+      name={nameBtn}
+      classname={css(styles.button)}
+    />
   </li>
 );
 

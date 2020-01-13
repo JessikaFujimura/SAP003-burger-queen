@@ -6,7 +6,7 @@ import Button from './Button';
 const styles = StyleSheet.create({
   nav: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-around',
     position: 'absolute',
     top: '10px',
@@ -20,7 +20,12 @@ const Nav = ({
 }) => (
   <nav className={css(styles.nav)}>
     <p>{user}</p>
-    <Button name="Log out" id="btnLogOut" handleClick={handleClick} />
+    <Button
+      name="Log out"
+      id="btnLogOut"
+      handleClick={handleClick}
+      classname={css(styles.button)}
+    />
   </nav>
 );
 

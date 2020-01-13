@@ -5,13 +5,36 @@ import Select from 'react-select';
 import Button from './Button';
 
 const styles = StyleSheet.create({
+  button: {
+    width: 'auto',
+    height: 'auto',
+    alignSelf: 'center',
+    color: '#BF3904',
+    border: '3px solid #BF3904',
+    borderRadius: '15px',
+    fontSize: '1.2rem',
+    padding: '1.5vh',
+    cursor: 'pointer',
+    margin: '1%',
+    ':focus': {
+      backgroundColor: '#420029',
+      color: 'white',
+    },
+    '@media (min-width: 992px)': {
+      padding: '3vh',
+      ':hover': {
+        backgroundColor: '#420029',
+        color: 'white',
+      },
+    },
+  },
   card: {
     boxSizing: 'border-box',
     backgroundColor: '#D3AA62',
-    margin: '2%',
-    padding: '3%',
-    borderRadius: '3vh',
-    width: '45%',
+    margin: '0.5vw',
+    padding: '2vw',
+    borderRadius: '2vw',
+    width: '22vw',
     listStyle: 'none',
   },
   img: {
@@ -21,10 +44,17 @@ const styles = StyleSheet.create({
     display: 'block',
     listStyle: 'none',
   },
-  radio: {
-    fontSize: '15rem',
-    userSelect: 'none',
-    cursor: 'pointer',
+  select: {
+    fontSize: '0.8rem',
+    '@media (min-width: 992px)': {
+      fontSize: '1rem',
+    },
+  },
+  title: {
+    height: '8vw',
+    '@media (min-width: 992px)': {
+      height: 'auto',
+    },
   },
 });
 
@@ -33,17 +63,28 @@ function Menu(
     id, item, value, icon, option, add, handleClick, optionChosen, addChosen,
   },
 ) {
-  const additional = add ? add.map((i) => { return { value: i, label: i }}) : [];
-  const options = option ? option.map((i) => { return { value: i, label: i }}) : [];
+  const additional = add
+    ? add.map((i) => { return { value: i, label: i }}
+    ) : [];
+  const options = option
+    ? option.map((i) => { return { value: i, label: i }}
+    ) : [];
   return (
     <li className={css(styles.card)} key={id} id>
       <img className={css(styles.img)} src={icon} alt="icone" />
-      <h1>{item}</h1>
-      <p>{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</p>
+      <h1 className={css(styles.title)}>{item}</h1>
+      <p>
+        {value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+      </p>
       {option ? (
         <p>
           Opções de hamburguer:
-          <Select onChange={(opt) => optionChosen(opt.value)} options={options} />
+          <Select
+            className={css(styles.select)}
+            placeholder="Tipos de opções"
+            onChange={(opt) => optionChosen(opt.value)}
+            options={options}
+          />
         </p>
       )
         : []}
@@ -51,11 +92,21 @@ function Menu(
         add ? (
           <p>
             Adicional:
-            <Select onChange={(opt) => addChosen(opt.value)} options={additional} />
+            <Select
+              className={css(styles.select)}
+              placeholder="Tipos de adicional"
+              onChange={(opt) => addChosen(opt.value)}
+              options={additional}
+            />
           </p>
         ) : []
       }
-      <Button id={id} handleClick={handleClick} name="Adicionar" />
+      <Button
+        id={id}
+        handleClick={handleClick}
+        name="Adicionar"
+        classname={css(styles.button)}
+      />
     </li>
   );
 }
@@ -74,19 +125,3 @@ Menu.propTypes = {
 };
 
 export default Menu;
-
-
-/*<form>
-<hr />
-<p>
-  Adicionais:
-</p>
-{
-  add.map((i) => (
-    <label htmlFor={i} key={i} className={css(styles.label)}>
-      <input className={css(styles.radio)} onChange={(e) => addChosen(e.target.value)} id={i} type="radio" value={i} name="addition" />
-      {i}
-    </label>
-  ))
-}
-</form>*/

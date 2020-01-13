@@ -10,6 +10,29 @@ import Button from '../Components/Button';
 import header from '../Image/Header.png';
 
 const styles = StyleSheet.create({
+  button: {
+    width: 'auto',
+    height: 'auto',
+    alignSelf: 'center',
+    color: '#BF3904',
+    border: '3px solid #BF3904',
+    borderRadius: '15px',
+    fontSize: '1.2rem',
+    padding: '1.5vh',
+    cursor: 'pointer',
+    margin: '1%',
+    ':focus': {
+      backgroundColor: '#420029',
+      color: 'white',
+    },
+    '@media (min-width: 992px)': {
+      padding: '3vh',
+      ':hover': {
+        backgroundColor: '#420029',
+        color: 'white',
+      },
+    },
+  },
   input: {
     width: '70vw',
     height: 'auto',
@@ -90,50 +113,58 @@ const CreateAccount = () => {
         text: 'Prencha o todos os campos',
         icon: 'warning',
       });
-    }
-    auth.createUserWithEmailAndPassword(email, password).then(
-      auth.onAuthStateChanged(() => {
-        if (auth.currentUser) {
-          firestore.collection('user').add({
-            name,
-            ocupation,
-            uid: auth.currentUser.uid,
-          });
-          auth.currentUser.updateProfile({
-            displayName: name,
-          });
+    } else {
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
           if (ocupation === 'Waiter') {
             history.push('/Waiter');
           } else {
             history.push('/Kitchen');
           }
-        }
-      }),
-    ).catch((error) => {
-      if (error.code === 'auth/invalid-email') {
-        Swal.fire({
-          text: 'Email inválido',
-          icon: 'warning',
+        })
+        .then(
+          auth.onAuthStateChanged(() => {
+            if (auth.currentUser) {
+              firestore.collection('user').add({
+                name,
+                ocupation,
+                uid: auth.currentUser.uid,
+              }).then(
+                auth.currentUser.updateProfile({
+                  displayName: name,
+                }),
+              );
+            }
+          }),
+        )
+        .catch((error) => {
+          if (error.code === 'auth/invalid-email') {
+            Swal.fire({
+              text: 'Email inválido',
+              icon: 'warning',
+            });
+          } else if (error.code === 'auth/weak-password') {
+            Swal.fire({
+              text: 'Senha deve conter no mínino 6 caracteres',
+              icon: 'warning',
+            });
+          } else if (error.code === 'auth/email-already-in-use') {
+            Swal.fire({
+              text: 'Usuário já cadastrado',
+              icon: 'warning',
+            });
+          }
         });
-      } else if (error.code === 'auth/weak-password') {
-        Swal.fire({
-          text: 'Senha deve conter no mínino 6 caracteres',
-          icon: 'warning',
-        });
-      } else if (error.code === 'auth/email-already-in-use') {
-        Swal.fire({
-          text: 'Usuário já cadastrado',
-          icon: 'warning',
-        });
-      }
-    });
+    }
   }
+
 
   return (
     <main className={css(styles.main)}>
       <Header
         classname={css(styles.header)}
         text="Seu fast-food 24 Horas"
+        link="/"
       />
       <form className={css(styles.form)}>
         <fieldset className={css(styles.fieldset)}>
@@ -172,7 +203,12 @@ const CreateAccount = () => {
             type="password"
             handleClick={(e) => setPassword(e.currentTarget.value)}
           />
-          <Button handleClick={() => newAccount()} name="Registrar-se" id="Create" />
+          <Button
+            handleClick={() => newAccount()}
+            name="Registrar-se"
+            id="Create"
+            classname={css(styles.button)}
+          />
         </fieldset>
       </form>
       <p>
