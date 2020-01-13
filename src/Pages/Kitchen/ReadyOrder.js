@@ -49,9 +49,9 @@ const ReadyOrder = () => {
   return (
     <section className={css(styles.section)}>
       <h4 className={css(styles.title)}>
-        <span role="img" aria-label="Fork and Knife With Plate">🍽️</span>
+        <span role="img" aria-label="Fork and Knife With Plate">🍽️ </span>
         Pedidos prontos
-        <span role="img" aria-label="Fork and Knife With Plate">🍽️</span>
+        <span role="img" aria-label="Fork and Knife With Plate"> 🍽️</span>
       </h4>
       <article className={css(styles.article)}>
         {ready.map((i) => (

@@ -2,7 +2,7 @@
 
 ## Índice
 
-* [1. Preâmbulo](#1-preâmbulo)
+* [1. Burguer Queen](#1-burguer-queen)
 * [2. Resumo do projeto](#2-resumo-do-projeto)
 * [3. Objetivos de aprendizagem](#3-objetivos-de-aprendizagem)
 * [4. Considerações gerais](#4-considerações-gerais)
@@ -13,28 +13,23 @@
 
 ***
 
-## 1. Preâmbulo
+## 1. Burguer Queen 
 
-[React](https://reactjs.org/), [Angular](https://angular.io/) e
-[Vue](https://vuejs.org/) são alguns dos _frameworks_ e _bibliotecas_ de
-JavaScript mais usados na área de desenvolvimento ao redor do mundo e existe uma
-razão para isso. No contexto do navegador, [_manter a interface sincronizada com
-o estado é difícil_](https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445).
+É uma SPA construída com ReactJs para agilizar os processos dos pedidos dos clientes de um restaurante fast-food.
 
-Ao eleger um _framework_ ou _biblioteca_ para nossa interface, nos apoiamos em
-uma série de convenções e implementações _testadas_ e _documentadas_ para
-resolver um problema comum a toda interface web. Isto nos permite concentrar
-melhor (dedicar mais tempo) nas características _específicas_ de nossa
-aplicação.
+@JessikaFujimura :
 
-Quando escolhemos uma destas tecnologias não só importamos um pedaço de código
-para reusar (o qual já é um grande valor por si só), mas também adotamos uma
-**arquitetura**, uma série de **princípios de design**, um paradigma, algumas
-**abstrações**, um **vocabulário**, uma **comunidade**, etc...
+A aplicação pode ser acessada pelo seguinte link: [Burguer Queen](https://burguer-queen-aff2c.firebaseapp.com)
 
-Como desenvolvedora Front-end, estes kits de desenvolvimento podem resultar em
-uma grande ajuda para implementar rapidamente _features_ dos projetos em que
-você for trabalhar.
+Esta aplicação solicita ao usuário o cadastro via email e login com email e senha, esta etapa é responsável pelo redirecionamento a página de interesse de acordo com a a ocupação (Garçon/Cozinheiro).
+
+A interface do Garçon mostra as opções de Novo Pedido, Pedido Realizados, Entregar Pedidos. 
+os dois menus (café da manhã e restante do dia), cada
+um com todos os seus _produtos_. O usuário deve poder escolher que _produtos_
+adicionar e a interface deve mostrar o _resumo do pedido_ com o custo total.
+
+que se possa realizar pedidos utilizando um , e enviá-los
+para a cozinha para que sejam preparados de forma ordenada e eficiente. Sua interface foi desenvolvida para ser utilizada em _tablet_. 
 
 ## 2. Resumo do projeto
 
@@ -43,8 +38,7 @@ sugestões de melhora e mudança, mas muitas vezes trabalhará em um projeto em 
 primeiro deve se assegurar de cumprir os requisitos.
 
 Um pequeno restaurante de hambúrgueres, que está crescendo, necessita uma
-interface em que se possa realizar pedidos utilizando um _tablet_, e enviá-los
-para a cozinha para que sejam preparados de forma ordenada e eficiente.
+
 
 ![burger-queen](https://user-images.githubusercontent.com/110297/42118136-996b4a52-7bc6-11e8-8a03-ada078754715.jpg)
 

@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     borderRadius: '5px',
     width: '95vw',
   },
+  article: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
 });
 
 
@@ -45,7 +51,7 @@ const Delivery = () => {
   return (
     <section className={css(styles.section)}>
       <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
-      <article>
+      <article className={css(styles.article)}>
         {ready.map((i) => (
           <Order
             id={i.id}

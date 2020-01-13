@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: '1.2rem',
     padding: '1.5vh',
     cursor: 'pointer',
-    margin: '1%',
+    margin: '1% auto',
     ':focus': {
       backgroundColor: '#420029',
       color: 'white',
