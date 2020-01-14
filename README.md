@@ -3,13 +3,11 @@
 ## Índice
 
 * [1. Burguer Queen](#1-burguer-queen)
-* [2. Resumo do projeto](#2-resumo-do-projeto)
-* [3. Objetivos de aprendizagem](#3-objetivos-de-aprendizagem)
-* [4. Considerações gerais](#4-considerações-gerais)
-* [5. Critérios de aceitação mínimos do
-  projeto](#5-critérios-de-aceitação-mínimos-do-projeto)
-* [6. Hacker Edition](#6-hacker-edition)
-* [7. Dicas e leituras complementares](#7-dicas-e-leituras-complementares)
+* [2. Planejamento](#2-planejamento)
+* [3. PWA](#3-pwa)
+* [4. Contribuição](#4-contribuição)
+* [5. Ferramentas utilizadas](#5-ferramentas-utilizadas)
+
 
 ***
 
@@ -113,7 +111,7 @@ O que deve acontecer para satisfazer as necessidades do usuário?
 * Criar tipo de usuário (cozinha / salão).
 * Entrar na tela correta para cada usuário.
 
-## 6. PWA
+## 3. PWA
 
 Esta aplicação atende os critérios para PWAs (Progressive Web Apps). 
 
@@ -122,7 +120,7 @@ Foi usado o Lighthouse, que é uma ferramenta do Google avaliar se a aplicação
 ![PWA](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/pwa.png)
 
 
-## 7. Contribuição
+## 4. Contribuição
 
 * Faça um _fork_ deste repositório (no GitHub).
 
@@ -133,7 +131,7 @@ Foi usado o Lighthouse, que é uma ferramenta do Google avaliar se a aplicação
 * Para abrir a aplicação `npm start`
 
 
-## 8. Ferramentas utilizadas
+## 5. Ferramentas utilizadas
 
 #### Framework / biblioteca
 
