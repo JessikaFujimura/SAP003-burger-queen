@@ -31,6 +31,8 @@ A interface do Garçon mostra as opções de :
 * Pedido Realizados
 * Entregar Pedidos
 
+![Page CreateAccount](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/BQHall-2020-01-14_11.35.gif)
+
 
 Em Novo Pedido, há dois menus (café da manhã e restante do dia), cada
 um com todos os seus _produtos_. O usuário escolhe os _produtos_
