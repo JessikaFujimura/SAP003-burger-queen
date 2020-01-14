@@ -15,21 +15,25 @@
 
 ## 1. Burguer Queen 
 
-É uma SPA construída com ReactJs para agilizar os processos dos pedidos dos clientes de um restaurante fast-food.
-
-@JessikaFujimura :
+É uma SPA construída com ReactJs para agilizar os processos dos pedidos dos clientes de um restaurante fast-food. Sua interface foi desenvolvida para ser utilizada em _tablet_. 
 
 A aplicação pode ser acessada pelo seguinte link: [Burguer Queen](https://burguer-queen-aff2c.firebaseapp.com)
 
 Esta aplicação solicita ao usuário o cadastro via email e login com email e senha, esta etapa é responsável pelo redirecionamento a página de interesse de acordo com a a ocupação (Garçon/Cozinheiro).
 
-A interface do Garçon mostra as opções de Novo Pedido, Pedido Realizados, Entregar Pedidos. 
-os dois menus (café da manhã e restante do dia), cada
-um com todos os seus _produtos_. O usuário deve poder escolher que _produtos_
-adicionar e a interface deve mostrar o _resumo do pedido_ com o custo total.
 
-que se possa realizar pedidos utilizando um , e enviá-los
-para a cozinha para que sejam preparados de forma ordenada e eficiente. Sua interface foi desenvolvida para ser utilizada em _tablet_. 
+
+A interface do Garçon mostra as opções de : 
+* Novo Pedido
+* Pedido Realizados
+* Entregar Pedidos
+
+Em Novo Pedido, há dois menus (café da manhã e restante do dia), cada
+um com todos os seus _produtos_. O usuário escolhe os _produtos_
+adicionar e a interface mostra o _resumo do pedido_ com o custo total.
+
+Em Pedidos Realizados, são mostrados todos os pedidos feitos por todos os usuários. Há a possibilidade de excluir o pedido.
+
 
 ## 2. Resumo do projeto
 
