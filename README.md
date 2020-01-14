@@ -119,7 +119,7 @@ Esta aplicação atende os critérios para PWAs (Progressive Web Apps).
 
 Foi usado o Lighthouse, que é uma ferramenta do Google avaliar se a aplicação segue as "boas práticas".
 
-![Page Kitchen](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/BQKitchen-2020-01-14_11.40.gif)
+![PWA](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/pwa.png)
 
 
 ## 7. Contribuição
