@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const List = ({
+function List({
   key,
   quant,
   item,
@@ -104,56 +104,58 @@ const List = ({
   deleteClick,
   removeClick,
   addClick,
-}) => (
-  <>
-    <Button
-      id="btnX"
-      name={<FontAwesomeIcon icon={faTrashAlt} />}
-      handleClick={deleteClick}
-      classname={css(styles.buttonDelete)}
-    />
-    <li key={key} className={css(styles.list)}>
-      <p className={css(styles.descrition)}>
-        <b>Produto:</b>
-        <span>
-          {item}
-        </span>
-        {optionChosen ? (
-          <p className={css(styles.line)}>
-            <span>Opção: </span>
-            <span>{optionChosen}</span>
-          </p>
-        ) : false}
-        {addChosen ? (
-          <p className={css(styles.line)}>
-            <span>Adicional: </span>
-            <span>{addChosen}</span>
-          </p>
-        ) : false}
-      </p>
+}) {
+  return (
+    <>
       <Button
-        id="btn+"
-        name="+"
-        handleClick={addClick}
-        classname={css(styles.button)}
+        id="btnX"
+        name={<FontAwesomeIcon icon={faTrashAlt} />}
+        handleClick={deleteClick}
+        classname={css(styles.buttonDelete)}
       />
-      <p className={css(styles.p)}>
-        <b>Quant.:</b>
-        {quant}
-      </p>
-      <p className={css(styles.p)}>
-        <b>Total:</b>
-        {(quant * value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-      </p>
-      <Button
-        id="btn-"
-        name="-"
-        handleClick={removeClick}
-        classname={css(styles.button)}
-      />
-    </li>
-  </>
-);
+      <li key={key} className={css(styles.list)}>
+        <p className={css(styles.descrition)}>
+          <b>Produto:</b>
+          <span>
+            {item}
+          </span>
+          {optionChosen ? (
+            <p className={css(styles.line)}>
+              <span>Opção: </span>
+              <span>{optionChosen}</span>
+            </p>
+          ) : false}
+          {addChosen ? (
+            <p className={css(styles.line)}>
+              <span>Adicional: </span>
+              <span>{addChosen}</span>
+            </p>
+          ) : false}
+        </p>
+        <Button
+          id="btn+"
+          name="+"
+          handleClick={addClick}
+          classname={css(styles.button)}
+        />
+        <p className={css(styles.p)}>
+          <b>Quant.:</b>
+          {quant}
+        </p>
+        <p className={css(styles.p)}>
+          <b>Total:</b>
+          {(quant * value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+        </p>
+        <Button
+          id="btn-"
+          name="-"
+          handleClick={removeClick}
+          classname={css(styles.button)}
+        />
+      </li>
+    </>
+  );
+}
 
 List.propTypes = {
   key: PropTypes.string.isRequired,

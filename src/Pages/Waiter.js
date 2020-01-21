@@ -4,9 +4,9 @@ import { Route, Link, useHistory } from 'react-router-dom';
 import { auth } from '../utils/firebase';
 import Header from '../Components/Header';
 import Nav from '../Components/Nav';
-import MakeOrder from './Waiter/MakeOrder';
-import Delivery from './Waiter/Delivery';
-import OrderDone from './Waiter/OrderDone';
+import MakeOrder from './MakeOrder';
+import ReadyOrder from './ReadyOrder';
+import OrderHistory from './OrderHistory';
 import header from '../Image/Header.png';
 
 const styles = StyleSheet.create({
@@ -100,16 +100,16 @@ const Waiter = () => {
         <Link className={css(styles.link)} to="/Waiter/Order">
           Novo Pedido
         </Link>
-        <Link className={css(styles.link)} to="/Waiter/OrderDone">
-          Pedido Realizados
-        </Link>
-        <Link className={css(styles.link)} to="/Waiter/Delivery">
+        <Link className={css(styles.link)} to="/Waiter/ReadyOrder">
           Entregar Pedido
+        </Link>
+        <Link className={css(styles.link)} to="/Waiter/OrderHistory">
+          Histórico de Pedidos
         </Link>
       </section>
       <Route path="/Waiter/Order" component={MakeOrder} />
-      <Route path="/Waiter/Delivery" component={Delivery} />
-      <Route path="/Waiter/OrderDone" component={OrderDone} />
+      <Route path="/Waiter/ReadyOrder" component={ReadyOrder} />
+      <Route path="/Waiter/OrderHistory" component={OrderHistory} />
     </main>
   );
 };

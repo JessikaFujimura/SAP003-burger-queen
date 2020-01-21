@@ -20,7 +20,6 @@ A aplicação pode ser acessada pelo seguinte link: [Burguer Queen](https://burg
 Esta aplicação solicita ao usuário o cadastro via email e login com email e senha, esta etapa é responsável pelo redirecionamento a página de interesse de acordo com a a ocupação (Garçon/Cozinheiro).
 
 ![Page Login](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/PageLogin.png)
-
 ![Page CreateAccount](https://raw.githubusercontent.com/JessikaFujimura/SAP003-burger-queen/master/src/Image/PageCreateAccount.png)
 
 A interface do Garçon mostra as opções de : 

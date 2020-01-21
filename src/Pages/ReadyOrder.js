@@ -1,20 +1,14 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import Order from '../../Components/Order';
-import { firestore } from '../../utils/firebase';
+import Order from '../Components/Order';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
-  title: {
-    textAlign: 'center',
-    color: '#8D0A0A',
-    fontSize: '1.8rem',
-    fontWeight: 'bolder',
-  },
   section: {
-    boxSizing: 'border-box',
     backgroundImage: 'linear-gradient(#D3AA62, #BF3904)',
-    margin: '3vw auto',
+    boxSizing: 'border-box',
+    margin: '3% auto',
     padding: '1%',
     borderRadius: '5px',
     width: '95vw',
@@ -23,19 +17,28 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+  },
+  title: {
+    textAlign: 'center',
+    color: '#8D0A0A',
+    fontSize: '1.8rem',
+    fontWeight: 'bolder',
   },
 });
 
-
-const Delivery = () => {
+const ReadyOrder = () => {
   const [ready, setReady] = useState([]);
 
   useEffect(() => {
-    firestore.collection('orders').where('status', '==', 'pronto').get()
-      .then((snap) => {
-        snap.forEach((doc) => (
-          setReady((currency) => [...currency, { ...doc.data(), id: doc.id }])));
+    firestore
+      .collection('orders')
+      .where('status', '==', 'pronto')
+      .orderBy('time', 'asc')
+      .onSnapshot((snap) => {
+        snap.docChanges()
+          .forEach((doc) => setReady(
+            (currency) => [...currency, { ...doc.doc.data(), id: doc.doc.id }],
+          ));
       });
   }, []);
 
@@ -44,25 +47,27 @@ const Delivery = () => {
       status: 'entregue',
     });
     item.status = 'entregue';
-    setReady(ready.filter((i) => i.status === 'pronto'));
   }
 
 
   return (
     <section className={css(styles.section)}>
-      <h4 className={css(styles.title)}>Pedidos prontos para entregar</h4>
+      <h4 className={css(styles.title)}>
+        <span role="img" aria-label="Fork and Knife With Plate">🍽️ </span>
+        Pedidos prontos
+        <span role="img" aria-label="Fork and Knife With Plate"> 🍽️</span>
+      </h4>
       <article className={css(styles.article)}>
         {ready.map((i) => (
           <Order
-            id={i.id}
             client={i.client}
             table={i.table}
             orderClient={i.order}
             date={i.time.toDate().toLocaleString('pt-BR').split(' ')[0]}
             time={i.time.toDate().toLocaleString('pt-BR').split(' ')[1]}
             leadTime={i.leadTime}
-            status={i.status}
             nameBtn="Entregue"
+            status={i.status}
             handleClick={() => Delivered(i)}
           />
         ))}
@@ -71,4 +76,4 @@ const Delivery = () => {
   );
 };
 
-export default Delivery;
+export default ReadyOrder;

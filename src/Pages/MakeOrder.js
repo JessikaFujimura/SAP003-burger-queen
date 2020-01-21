@@ -5,11 +5,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import Swal from 'sweetalert2';
 import firebase from 'firebase/app';
-import { firestore } from '../../utils/firebase';
-import Input from '../../Components/Input';
-import Button from '../../Components/Button';
-import Menu from '../../Components/Menu';
-import List from '../../Components/List';
+import { firestore } from '../utils/firebase';
+import Input from '../Components/Input';
+import Button from '../Components/Button';
+import Menu from '../Components/Menu';
+import List from '../Components/List';
 
 const styles = StyleSheet.create({
   button: {

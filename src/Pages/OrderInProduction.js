@@ -1,7 +1,8 @@
+/* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import Order from '../../Components/Order';
-import { firestore } from '../../utils/firebase';
+import Order from '../Components/Order';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   section: {

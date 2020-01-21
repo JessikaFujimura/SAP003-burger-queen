@@ -6,9 +6,9 @@ import Header from '../Components/Header';
 import Nav from '../Components/Nav';
 import header from '../Image/Header.png';
 import { auth } from '../utils/firebase';
-import OrderInProduction from './Kitchen/OrderInProduction';
-import ReadyOrder from './Kitchen/ReadyOrder';
-import OrderHistory from './Kitchen/OrderHistory';
+import OrderInProduction from './OrderInProduction';
+import ReadyOrder from './ReadyOrder';
+import OrderHistory from './OrderHistory';
 
 const styles = StyleSheet.create({
   header: {

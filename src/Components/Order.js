@@ -70,81 +70,83 @@ const styles = StyleSheet.create({
 });
 
 
-const Order = ({
+function Order({
   id, client, orderClient, table, handleClick, date, time, nameBtn, leadTime, status,
-}) => (
-  <li className={css(styles.order)}>
-    <table className={css(styles.table)}>
-      <thead>
-        <tr>
-          <th className={css(styles.left)}>Mesa</th>
-          <th className={css(styles.right)}>{table}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><FontAwesomeIcon icon={faUser} /></td>
-          <td>{client}</td>
-        </tr>
-        <tr>
-          <td><strong>Status:</strong></td>
-          {
-          status === 'pronto'
-            ? <td className={css(styles.ready)}>{status}</td>
-            : false
-          }
-          {
-          status === 'em preparação'
-            ? <td className={css(styles.wait)}>{status}</td>
-            : false
-          }
-          {status === 'entregue'
-            ? <td className={css(styles.delivery)}>{status}</td>
-            : false
-          }
-        </tr>
-        <tr>
-          <td><FontAwesomeIcon icon={faCalendarAlt} /></td>
-          <td>{date}</td>
-        </tr>
-        <tr>
-          <td><FontAwesomeIcon icon={faClock} /></td>
-          <td>{time}</td>
-        </tr>
-        <tr>
-          <td><FontAwesomeIcon icon={faHourglassEnd} /></td>
-          <td>{leadTime}</td>
-        </tr>
-      </tbody>
-      <br></br>
-      <thead>
-        <tr>
-          <th>Quant.</th>
-          <th>Item</th>
-        </tr>
-      </thead>
-      {orderClient.map((n) => (
+}) {
+  return (
+    <li className={css(styles.order)}>
+      <table className={css(styles.table)}>
+        <thead>
+          <tr>
+            <th className={css(styles.left)}>Mesa</th>
+            <th className={css(styles.right)}>{table}</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <td>{n.quant}</td>
-            <td>
-              {n.optionChosen
-                ? `${n.item} de ${n.optionChosen} com ${n.addChosen}`
-                : n.item
-              }
-            </td>
+            <td><FontAwesomeIcon icon={faUser} /></td>
+            <td>{client}</td>
+          </tr>
+          <tr>
+            <td><strong>Status:</strong></td>
+            {
+            status === 'pronto'
+              ? <td className={css(styles.ready)}>{status}</td>
+              : false
+            }
+            {
+            status === 'em preparação'
+              ? <td className={css(styles.wait)}>{status}</td>
+              : false
+            }
+            {status === 'entregue'
+              ? <td className={css(styles.delivery)}>{status}</td>
+              : false
+            }
+          </tr>
+          <tr>
+            <td><FontAwesomeIcon icon={faCalendarAlt} /></td>
+            <td>{date}</td>
+          </tr>
+          <tr>
+            <td><FontAwesomeIcon icon={faClock} /></td>
+            <td>{time}</td>
+          </tr>
+          <tr>
+            <td><FontAwesomeIcon icon={faHourglassEnd} /></td>
+            <td>{leadTime}</td>
           </tr>
         </tbody>
-      ))}
-    </table>
-    <Button
-      handleClick={handleClick}
-      id={id}
-      name={nameBtn}
-      classname={css(styles.button)}
-    />
-  </li>
-);
+        <br></br>
+        <thead>
+          <tr>
+            <th>Quant.</th>
+            <th>Item</th>
+          </tr>
+        </thead>
+        {orderClient.map((n) => (
+          <tbody>
+            <tr>
+              <td>{n.quant}</td>
+              <td>
+                {n.optionChosen
+                  ? `${n.item} de ${n.optionChosen} com ${n.addChosen}`
+                  : n.item
+                }
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </table>
+      <Button
+        handleClick={handleClick}
+        id={id}
+        name={nameBtn}
+        classname={css(styles.button)}
+      />
+    </li>
+  );
+}
 
 Order.propTypes = {
   id: PropTypes.string.isRequired,

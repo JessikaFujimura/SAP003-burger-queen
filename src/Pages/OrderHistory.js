@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import Order from '../../Components/Order';
-import { firestore } from '../../utils/firebase';
+import Order from '../Components/Order';
+import { firestore } from '../utils/firebase';
 
 const styles = StyleSheet.create({
   section: {
@@ -29,10 +29,14 @@ const OrderHistory = () => {
   const [historic, setHistoric] = useState([]);
 
   useEffect(() => {
-    firestore.collection('orders').where('status', '==', 'entregue').orderBy('time', 'asc').get()
-      .then((snap) => {
-        snap.forEach((doc) => (
-          setHistoric((currency) => [...currency, { ...doc.data(), id: doc.id }])));
+    firestore
+      .collection('orders')
+      .where('status', '==', 'entregue')
+      .orderBy('time', 'asc')
+      .onSnapshot((snap) => {
+        snap.docChanges()
+          .forEach((doc) => (
+            setHistoric((currency) => [...currency, { ...doc.doc.data(), id: doc.doc.id }])));
       });
   }, []);
 
@@ -40,7 +44,6 @@ const OrderHistory = () => {
   function Delete(i) {
     firestore.collection('orders').doc(i.id).delete();
     historic.splice(historic.indexOf(i), 1);
-    setHistoric([...historic]);
   }
 
   return (

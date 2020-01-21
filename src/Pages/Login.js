@@ -125,7 +125,7 @@ const Login = () => {
             });
           } else {
             Swal.fire({
-              text: 'Usuário não cadastrado',
+              text: error,
               icon: 'warning',
             });
           }

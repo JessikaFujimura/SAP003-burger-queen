@@ -51,25 +51,27 @@ const styles = StyleSheet.create({
 
 });
 
-const Nav = ({
+function Nav({
   user, handleClick,
-}) => (
-  <nav className={css(styles.nav)}>
-    <p className={css(styles.p)}>
-      <FontAwesomeIcon
-        icon={faUserCircle}
-        className={css(styles.icon)}
+}) {
+  return (
+    <nav className={css(styles.nav)}>
+      <p className={css(styles.p)}>
+        <FontAwesomeIcon
+          icon={faUserCircle}
+          className={css(styles.icon)}
+        />
+        <span>{user}</span>
+      </p>
+      <Button
+        name="Log out"
+        id="btnLogOut"
+        handleClick={handleClick}
+        classname={css(styles.btnLogOut)}
       />
-      <span>{user}</span>
-    </p>
-    <Button
-      name="Log out"
-      id="btnLogOut"
-      handleClick={handleClick}
-      classname={css(styles.btnLogOut)}
-    />
-  </nav>
-);
+    </nav>
+  );
+}
 
 Nav.propTypes = {
   user: PropTypes.string.isRequired,

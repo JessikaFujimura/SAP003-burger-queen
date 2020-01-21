@@ -64,11 +64,9 @@ function Menu(
   },
 ) {
   const additional = add
-    ? add.map((i) => { return { value: i, label: i }}
-    ) : [];
+    ? add.map((i) => ({ value: i, label: i })) : [];
   const options = option
-    ? option.map((i) => { return { value: i, label: i }}
-    ) : [];
+    ? option.map((i) => ({ value: i, label: i })) : [];
   return (
     <li className={css(styles.card)} key={id} id>
       <img className={css(styles.img)} src={icon} alt="icone" />
