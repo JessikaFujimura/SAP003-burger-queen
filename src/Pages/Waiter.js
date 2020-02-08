@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'start',
     justifyContent: 'center',
-    maxHeight: '13vw',
+    maxHeight: '15vw',
     padding: '3% 0 0',
     '@media (min-width: 992px)': {
       maxHeight: '7vw',

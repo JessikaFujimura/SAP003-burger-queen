@@ -39,9 +39,9 @@ const OrderInProduction = () => {
   }, []);
 
   function Ready(item) {
-    const timePast = ((new Date().getTime() / 1000) - item.time.seconds);
+    const timePast = ((new Date().getTime() * 1000) - item.time.seconds);
     const leadTime = `
-          ${parseInt(timePast / 3600, 10)}h:
+          ${parseInt(timePast / 3600, 10) - parseInt(((timePast / 86400) * 60), 10)}h:
           ${parseInt(timePast / 60, 10) - parseInt(((timePast / 3600) * 60), 10)}m:
           ${parseInt(timePast % 60, 10)}s
           `;

@@ -7,7 +7,6 @@ import Button from './Button';
 
 const styles = StyleSheet.create({
   btnLogOut: {
-    width: '12.5vw',
     height: 'auto',
     alignSelf: 'center',
     color: '#BF3904',
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    fontSize: '3rem',
+    fontSize: '2.5rem',
     borderRadius: '50%',
     backgroundColor: 'white',
   },

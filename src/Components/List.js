@@ -6,33 +6,6 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Button from './Button';
 
 const styles = StyleSheet.create({
-  buttonDelete: {
-    width: 'auto',
-    height: 'auto',
-    alignSelf: 'center',
-    color: '#BF3904',
-    border: '3px solid #BF3904',
-    borderRadius: '15px',
-    fontSize: '1.2rem',
-    padding: '1.5vh',
-    cursor: 'pointer',
-    position: 'relative',
-    top: '5vw',
-    left: '20vw',
-    ':focus': {
-      backgroundColor: '#420029',
-      color: 'white',
-    },
-    '@media (min-width: 992px)': {
-      padding: '3vh',
-      top: '2.5vw',
-      left: '20.5vw',
-      ':hover': {
-        backgroundColor: '#420029',
-        color: 'white',
-      },
-    },
-  },
   button: {
     width: 'auto',
     height: 'auto',
@@ -40,10 +13,10 @@ const styles = StyleSheet.create({
     color: '#BF3904',
     border: '3px solid #BF3904',
     borderRadius: '15px',
-    fontSize: '1.2rem',
-    padding: '1.5vh',
+    fontSize: '1rem',
+    padding: '1vh',
     cursor: 'pointer',
-    margin: '1%',
+    margin: '0.5%',
     ':focus': {
       backgroundColor: '#420029',
       color: 'white',
@@ -63,12 +36,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     listStyle: 'none',
-    width: '40vw',
+    width: '45vw',
     height: '5%',
-    margin: '0 auto 0',
+    margin: '3% auto 0',
     color: '#420029',
     border: '2px solid #420029',
-    fontSize: '70%',
+    fontSize: '1rem',
     '@media (min-width: 768px)': {
       fontSize: '1.2rem',
       border: '3px solid #420029',
@@ -87,15 +60,21 @@ const styles = StyleSheet.create({
   p: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '1% 3%',
+    margin: '1%  0',
   },
   line: {
     margin: '0 auto',
   },
+  info: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: '0',
+    width: '100%',
+  },
 });
 
 function List({
-  key,
   quant,
   item,
   optionChosen,
@@ -106,32 +85,25 @@ function List({
   addClick,
 }) {
   return (
-    <>
-      <Button
-        id="btnX"
-        name={<FontAwesomeIcon icon={faTrashAlt} />}
-        handleClick={deleteClick}
-        classname={css(styles.buttonDelete)}
-      />
-      <li key={key} className={css(styles.list)}>
-        <p className={css(styles.descrition)}>
-          <b>Produto:</b>
-          <span>
-            {item}
-          </span>
-          {optionChosen ? (
-            <p className={css(styles.line)}>
-              <span>Opção: </span>
-              <span>{optionChosen}</span>
-            </p>
-          ) : false}
-          {addChosen ? (
-            <p className={css(styles.line)}>
-              <span>Adicional: </span>
-              <span>{addChosen}</span>
-            </p>
-          ) : false}
-        </p>
+    <li className={css(styles.list)}>
+      <p className={css(styles.descrition)}>
+        <b>
+          {item}
+        </b>
+        {optionChosen ? (
+          <p className={css(styles.line)}>
+            <span>Opção: </span>
+            <span>{optionChosen}</span>
+          </p>
+        ) : false}
+        {addChosen ? (
+          <p className={css(styles.line)}>
+            <span>Adicional: </span>
+            <span>{addChosen}</span>
+          </p>
+        ) : false}
+      </p>
+      <div className={css(styles.info)}>
         <Button
           id="btn+"
           name="+"
@@ -142,23 +114,28 @@ function List({
           <b>Quant.:</b>
           {quant}
         </p>
-        <p className={css(styles.p)}>
-          <b>Total:</b>
-          {(quant * value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
-        </p>
         <Button
           id="btn-"
           name="-"
           handleClick={removeClick}
           classname={css(styles.button)}
         />
-      </li>
-    </>
+        <p className={css(styles.p)}>
+          <b>Total:</b>
+          {(quant * value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+        </p>
+        <Button
+          id="btnX"
+          name={<FontAwesomeIcon icon={faTrashAlt} />}
+          handleClick={deleteClick}
+          classname={css(styles.button)}
+        />
+      </div>
+    </li>
   );
 }
 
 List.propTypes = {
-  key: PropTypes.string.isRequired,
   item: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   quant: PropTypes.number.isRequired,

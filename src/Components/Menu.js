@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     border: '3px solid #BF3904',
     borderRadius: '15px',
     fontSize: '1.2rem',
-    padding: '1.5vh',
+    padding: '1vh',
     cursor: 'pointer',
     margin: '1%',
     ':focus': {
@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     boxSizing: 'border-box',
     backgroundColor: '#D3AA62',
     margin: '0.5vw',
-    padding: '2vw',
+    padding: '1vw',
     borderRadius: '2vw',
     width: '22vw',
     listStyle: 'none',
   },
   img: {
-    width: '40%',
+    width: '30%',
   },
   label: {
     display: 'block',
@@ -51,9 +51,17 @@ const styles = StyleSheet.create({
     },
   },
   title: {
-    height: '8vw',
+    fontSize: '1rem',
+    margin: '0',
+    height: '5vh',
     '@media (min-width: 992px)': {
       height: 'auto',
+    },
+  },
+  price: {
+    margin: '0',
+    '@media (min-width: 992px)': {
+      margin: '0',
     },
   },
 });
@@ -71,7 +79,7 @@ function Menu(
     <li className={css(styles.card)} key={id} id>
       <img className={css(styles.img)} src={icon} alt="icone" />
       <h1 className={css(styles.title)}>{item}</h1>
-      <p>
+      <p className={css(styles.price)}>
         {value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
       </p>
       {option ? (
